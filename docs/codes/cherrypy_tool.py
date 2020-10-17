@@ -1,7 +1,6 @@
-#!/usr/bin/env python
-
 import cherrypy
 from cherrypy.process import plugins
+
 from codernitydb3.database_thread_safe import ThreadSafeDatabase as Database
 
 
@@ -15,11 +14,11 @@ class codernitydb3Plugin(plugins.SimplePlugin):
 
     def setup_db(self, data, *args, **kwargs):
         if self.db is None:
-            codernitydb = cherrypy.config.get('codernitydb')
+            codernitydb = cherrypy.config.get("codernitydb")
             if codernitydb:
-                path = codernitydb['dir']
+                path = codernitydb["dir"]
             else:
-                path = cherrypy.config['codernitydb.dir']
+                path = cherrypy.config["codernitydb.dir"]
             db = Database(path)
             if db.exists():
                 db.open()

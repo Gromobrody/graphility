@@ -1,31 +1,32 @@
 # custom_hash_index
 # CustomHashIndex
 
-# inserted automatically
-import os
 import marshal
 
-import struct
+# inserted automatically
+import os
 import shutil
-
+import struct
 from hashlib import md5
-
-# custom db code start
 
 # custom index code start
 from codernitydb3 import rr_cache
+
+# custom db code start
+
+
 # source of classes in index.classes_code
 # index code start
 
 
 class CustomHashIndex(HashIndex):
     def __init__(self, *args, **kwargs):
-        kwargs['entry_line_format'] = '32sIIIcI'
-        kwargs['hash_lim'] = 1
+        kwargs["entry_line_format"] = "32sIIIcI"
+        kwargs["hash_lim"] = 1
         super(CustomHashIndex, self).__init__(*args, **kwargs)
 
     def make_key_value(self, data):
-        d = data.get('test')
+        d = data.get("test")
         print(d)
         if d is None:
             return None
@@ -38,4 +39,4 @@ class CustomHashIndex(HashIndex):
     def make_key(self, key):
         if not isinstance(key, str):
             key = str(key)
-        return key.encode('utf8')
+        return key.encode("utf8")

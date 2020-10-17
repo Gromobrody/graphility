@@ -1,26 +1,7 @@
-#!/usr/bin/env python
-# -*- coding: utf-8 -*-
-#
-# Copyright 2020 Nick M. (https://github.com/nickmasster)
-# Copyright 2011-2013 Codernity (http://codernity.com)
-#
-# Licensed under the Apache License, Version 2.0 (the "License");
-# you may not use this file except in compliance with the License.
-# You may obtain a copy of the License at
-#
-#     http://www.apache.org/licenses/LICENSE-2.0
-#
-# Unless required by applicable law or agreed to in writing, software
-# distributed under the License is distributed on an "AS IS" BASIS,
-# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-# See the License for the specific language governing permissions and
-# limitations under the License.
-"""Storage module"""
-
+import io
+import marshal
 import os
 import struct
-import marshal
-import io
 
 try:
     from codernitydb3 import __version__
@@ -36,6 +17,7 @@ class DummyStorage:
     """
     Storage mostly used to fake real storage
     """
+
     def create(self, *args, **kwargs):
         pass
 
@@ -77,7 +59,7 @@ class IU_Storage(object):
 
     __version__ = __version__
 
-    def __init__(self, db_path, name='main'):
+    def __init__(self, db_path, name="main"):
         self.db_path = db_path
         self.name = name
         self._header_size = 100
@@ -86,29 +68,26 @@ class IU_Storage(object):
     def create(self):
         if os.path.exists(os.path.join(self.db_path, self.name + "_stor")):
             raise IOError("Storage already exists!")
-        with io.open(os.path.join(self.db_path, self.name + "_stor"),
-                     'wb') as f:
-            f.write(
-                struct.pack("10s90s", self.__version__.encode('utf8'),
-                            b'|||||'))
+        with io.open(os.path.join(self.db_path, self.name + "_stor"), "wb") as f:
+            f.write(struct.pack("10s90s", self.__version__.encode("utf8"), b"|||||"))
             f.close()
-        self._f = io.open(os.path.join(self.db_path, self.name + "_stor"),
-                          'r+b',
-                          buffering=0)
+        self._f = io.open(
+            os.path.join(self.db_path, self.name + "_stor"), "r+b", buffering=0
+        )
         self.flush()
         self._f.seek(0, 2)
 
     def open(self):
         if not os.path.exists(os.path.join(self.db_path, self.name + "_stor")):
             raise IOError("Storage doesn't exists!")
-        self._f = io.open(os.path.join(self.db_path, self.name + "_stor"),
-                          'r+b',
-                          buffering=0)
+        self._f = io.open(
+            os.path.join(self.db_path, self.name + "_stor"), "r+b", buffering=0
+        )
         self.flush()
         self._f.seek(0, 2)
 
     def destroy(self):
-        os.unlink(os.path.join(self.db_path, self.name + '_stor'))
+        os.unlink(os.path.join(self.db_path, self.name + "_stor"))
 
     def close(self):
         self._f.close()
@@ -136,8 +115,8 @@ class IU_Storage(object):
     def update(self, data):
         return self.save(data)
 
-    def get(self, start, size, status='c'):
-        if status == 'd':
+    def get(self, start, size, status="c"):
+        if status == "d":
             return None
         print(locals())
         self._f.seek(start)

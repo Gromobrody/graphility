@@ -1,22 +1,5 @@
-#!/usr/bin/env python
-# -*- coding: utf-8 -*-
-#
-# Copyright 2020 Nick M. (https://github.com/nickmasster)
-# Copyright 2011-2013 Codernity (http://codernity.com)
-#
-# Licensed under the Apache License, Version 2.0 (the "License");
-# you may not use this file except in compliance with the License.
-# You may obtain a copy of the License at
-#
-#     http://www.apache.org/licenses/LICENSE-2.0
-#
-# Unless required by applicable law or agreed to in writing, software
-# distributed under the License is distributed on an "AS IS" BASIS,
-# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-# See the License for the specific language governing permissions and
-# limitations under the License.
-
 from codernitydb3.index import Index
+
 # from codernitydb3.env import cdb_environment
 # import warnings
 
@@ -35,19 +18,19 @@ class ShardedIndex(Index):
         """
         super(ShardedIndex, self).__init__(db_path, name)
         try:
-            self.sh_nums = kwargs.pop('sh_nums')
+            self.sh_nums = kwargs.pop("sh_nums")
         except KeyError:
             self.sh_nums = 5
         try:
-            ind_class = kwargs.pop('ind_class')
+            ind_class = kwargs.pop("ind_class")
         except KeyError:
             raise Exception("ind_class must be given")
         else:
             # if not isinstance(ind_class, basestring):
             #     ind_class = ind_class.__name__
             self.ind_class = ind_class
-        if 'use_make_keys' in kwargs:
-            self.use_make_keys = kwargs.pop('use_make_keys')
+        if "use_make_keys" in kwargs:
+            self.use_make_keys = kwargs.pop("use_make_keys")
         else:
             self.use_make_keys = False
         self._set_shard_datas(*args, **kwargs)
@@ -62,7 +45,7 @@ class ShardedIndex(Index):
         for sh_name in [self.name + str(x) for x in range(self.sh_nums)]:
             # dict is better than list in that case
             self.shards[i] = ind_class(self.db_path, sh_name, *args, **kwargs)
-            self.shards_r[b'%02x' % i] = self.shards[i]
+            self.shards_r[b"%02x" % i] = self.shards[i]
             self.shards_r[i] = self.shards[i]
             i += 1
 
@@ -115,5 +98,5 @@ class ShardedIndex(Index):
 
     def make_key(self, key):
         if isinstance(key, str):
-            key = key.encode('utf8')
+            key = key.encode("utf8")
         return key

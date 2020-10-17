@@ -12,8 +12,9 @@
 # All configuration values have a default; values that are commented out
 # serve to show the default.
 
-import sys
 import os
+import sys
+
 try:
     import SphinxCodernity
 except ImportError:
@@ -31,23 +32,23 @@ except ImportError:
 
 # Add any Sphinx extension module names here, as strings. They can be extensions
 # coming with Sphinx (named 'sphinx.ext.*') or your custom ones.
-extensions = ['sphinx.ext.autodoc']
+extensions = ["sphinx.ext.autodoc"]
 
 # Add any paths that contain templates here, relative to this directory.
-templates_path = ['_templates']
+templates_path = ["_templates"]
 
 # The suffix of source filenames.
-source_suffix = '.rst'
+source_suffix = ".rst"
 
 # The encoding of source files.
 # source_encoding = 'utf-8-sig'
 
 # The master toctree document.
-master_doc = 'index'
+master_doc = "index"
 
 # General information about the project.
-project = u'codernitydb3'
-copyright = u'2011-2013, Codernity'
+project = u"codernitydb3"
+copyright = u"2011-2013, Codernity"
 # The version info for the project you're documenting, acts as replacement for
 # |version| and |release|, also used in various other places throughout the
 # built documents.
@@ -55,6 +56,7 @@ copyright = u'2011-2013, Codernity'
 # The short X.Y version.
 
 from codernitydb3 import __version__
+
 version = __version__
 # The full version, including alpha/beta/rc tags.
 release = __version__
@@ -71,7 +73,7 @@ release = __version__
 
 # List of patterns, relative to source directory, that match files and
 # directories to ignore when looking for source files.
-exclude_patterns = ['_build', '_themes']
+exclude_patterns = ["_build", "_themes"]
 
 # The reST default role (used for this markup: `text`) to use for all documents.
 # default_role = None
@@ -88,7 +90,7 @@ exclude_patterns = ['_build', '_themes']
 # show_authors = False
 
 # The name of the Pygments (syntax highlighting) style to use.
-pygments_style = 'sphinx'
+pygments_style = "sphinx"
 
 # A list of ignored prefixes for module index sorting.
 # modindex_common_prefix = []
@@ -98,7 +100,7 @@ pygments_style = 'sphinx'
 # The theme to use for HTML and HTML Help pages.  See the documentation for
 # a list of builtin themes.
 if "SphinxCodernity" in sys.modules:
-    html_theme = 'SphinxCodernity'
+    html_theme = "SphinxCodernity"
 else:
     pass
 
@@ -108,14 +110,14 @@ else:
 # html_theme_options = {}
 
 # Add any paths that contain custom themes here, relative to this directory.
-if 'SphinxCodernity' in sys.modules:
+if "SphinxCodernity" in sys.modules:
     html_theme_path = SphinxCodernity.get_html_theme_path()
 else:
     pass
 
 # The name for this set of Sphinx documents.  If None, it defaults to
 # "<project> v<release> documentation".
-html_title = 'codernitydb3'
+html_title = "codernitydb3"
 
 # A shorter title for the navigation bar.  Default is the same as html_title.
 # html_short_title = None
@@ -127,12 +129,12 @@ html_title = 'codernitydb3'
 # The name of an image file (within the static path) to use as favicon of the
 # docs.  This file should be a Windows icon file (.ico) being 16x16 or 32x32
 # pixels large.
-html_favicon = 'favicon.ico'
+html_favicon = "favicon.ico"
 
 # Add any paths that contain custom static files (such as style sheets) here,
 # relative to this directory. They are copied after the builtin static files,
 # so a file named "default.css" will overwrite the builtin "default.css".
-html_static_path = ['_static']
+html_static_path = ["_static"]
 
 # If not '', a 'Last updated on:' timestamp is inserted at every page bottom,
 # using the given strftime format.
@@ -143,7 +145,7 @@ html_static_path = ['_static']
 # html_use_smartypants = True
 
 # Custom sidebar templates, maps document names to template names.
-html_sidebars = {'**': ['globaltoc.html']}
+html_sidebars = {"**": ["globaltoc.html"]}
 
 # Additional templates that should be rendered to pages, maps page names to
 # template names.
@@ -176,17 +178,15 @@ html_sidebars = {'**': ['globaltoc.html']}
 # html_file_suffix = None
 
 # Output file base name for HTML help builder.
-htmlhelp_basename = 'codernitydb3doc'
+htmlhelp_basename = "codernitydb3doc"
 
 # -- Options for LaTeX output --------------------------------------------
 
 latex_elements = {
     # The paper size ('letterpaper' or 'a4paper').
     #'papersize': 'letterpaper',
-
     # The font size ('10pt', '11pt' or '12pt').
     #'pointsize': '10pt',
-
     # Additional stuff for the LaTeX preamble.
     #'preamble': '',
 }
@@ -194,8 +194,13 @@ latex_elements = {
 # Grouping the document tree into LaTeX files. List of tuples
 # (source start file, target name, title, author, documentclass [howto/manual]).
 latex_documents = [
-    ('index', 'codernitydb3.tex', u'codernitydb3 Documentation', u'Codernity',
-     'manual'),
+    (
+        "index",
+        "codernitydb3.tex",
+        u"codernitydb3 Documentation",
+        u"Codernity",
+        "manual",
+    ),
 ]
 
 # The name of an image file (relative to this directory) to place at the top of
@@ -222,8 +227,9 @@ latex_documents = [
 
 # One entry per manual page. List of tuples
 # (source start file, name, description, authors, manual section).
-man_pages = [('index', 'codernitydb', u'codernitydb3 Documentation',
-              [u'Codernity Team'], 1)]
+man_pages = [
+    ("index", "codernitydb", u"codernitydb3 Documentation", [u"Codernity Team"], 1)
+]
 
 # If true, show URL addresses after external links.
 # man_show_urls = False
@@ -234,8 +240,15 @@ man_pages = [('index', 'codernitydb', u'codernitydb3 Documentation',
 # (source start file, target name, title, author,
 #  dir menu entry, description, category)
 texinfo_documents = [
-    ('index', 'codernitydb3', u'codernitydb3 Documentation', u'Codernity Team',
-     'codernitydb3', 'One line description of project.', 'Miscellaneous'),
+    (
+        "index",
+        "codernitydb3",
+        u"codernitydb3 Documentation",
+        u"Codernity Team",
+        "codernitydb3",
+        "One line description of project.",
+        "Miscellaneous",
+    ),
 ]
 
 # Documents to append as an appendix to all manuals.

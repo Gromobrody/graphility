@@ -1,32 +1,18 @@
-#!/usr/bin/env python
-# -*- coding: utf-8 -*-
-#
-# Copyright 2011-2013 Codernity (http://codernity.com)
-#
-# Licensed under the Apache License, Version 2.0 (the "License");
-# you may not use this file except in compliance with the License.
-# You may obtain a copy of the License at
-#
-#     http://www.apache.org/licenses/LICENSE-2.0
-#
-# Unless required by applicable law or agreed to in writing, software
-# distributed under the License is distributed on an "AS IS" BASIS,
-# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-# See the License for the specific language governing permissions and
-# limitations under the License.
-
 import os
 import uuid
 from hashlib import md5
+
 from py.test import raises
 from pytest import fixture
 
-from codernitydb3.indexcreator import Parser, IndexCreatorValueException, IndexCreatorFunctionException
 from codernitydb3.database import Database, RecordNotFound
-from codernitydb3.hash_index import HashIndex
-from codernitydb3.tree_index import TreeBasedIndex
-from codernitydb3.tree_index import MultiTreeBasedIndex
-from codernitydb3.hash_index import MultiHashIndex
+from codernitydb3.hash_index import HashIndex, MultiHashIndex
+from codernitydb3.indexcreator import (
+    IndexCreatorFunctionException,
+    IndexCreatorValueException,
+    Parser,
+)
+from codernitydb3.tree_index import MultiTreeBasedIndex, TreeBasedIndex
 
 # class db_set():
 # def __init__(self,t):
@@ -41,7 +27,7 @@ from codernitydb3.hash_index import MultiHashIndex
 
 @fixture
 def db(request):
-    db = Database(os.path.join(str(request.getfixturevalue('tmpdir')), 'db'))
+    db = Database(os.path.join(str(request.getfixturevalue("tmpdir")), "db"))
     db.create()
     return db
 
@@ -60,7 +46,7 @@ def compare_for_multi_index(db, name, s, key_name, data, keys):
             with raises(RecordNotFound):
                 db.get(name, i, with_doc=True)
         else:
-            assert db.get(name, i, with_doc=True)['doc'][key_name] == k
+            assert db.get(name, i, with_doc=True)["doc"][key_name] == k
 
 
 class TestIndexCreatorWithDatabase:
@@ -76,7 +62,7 @@ class TestIndexCreatorWithDatabase:
         0
         """
         db.add_index(s)
-        assert s.encode('utf8') == db.get_index_code('s', code_switch='S')
+        assert s.encode("utf8") == db.get_index_code("s", code_switch="S")
 
         s1 = """
         type = TreeBasedIndex
@@ -88,7 +74,7 @@ class TestIndexCreatorWithDatabase:
         0
         """
         db.add_index(s1)
-        assert s1.encode('utf8') == db.get_index_code('s1', code_switch='S')
+        assert s1.encode("utf8") == db.get_index_code("s1", code_switch="S")
 
 
 class TestMultiIndexCreatorWithInternalImports:
@@ -104,10 +90,10 @@ class TestMultiIndexCreatorWithInternalImports:
         """
         compare_for_multi_index(
             db,
-            's',
+            "s",
             s,
-            'a',
-            ['abcd'],
+            "a",
+            ["abcd"],
             [
                 ("a", None),
                 ("ab", "abcd"),
@@ -115,8 +101,9 @@ class TestMultiIndexCreatorWithInternalImports:
                 ("b", None),
                 ("abcd", "abcd"),  # fix_r will trim it to 3 letters!
                 ("bcd", "abcd"),
-                ("abdc", None)
-            ])
+                ("abdc", None),
+            ],
+        )
 
         s2 = """
         name = s2
@@ -127,13 +114,22 @@ class TestMultiIndexCreatorWithInternalImports:
         make_key:
         fix_r(key,5)
         """
-        compare_for_multi_index(db, 's2', s2, 'a', ["abcd"], [("a", "abcd"),
-                                                              ("ab", "abcd"),
-                                                              ("abc", "abcd"),
-                                                              ("b", "abcd"),
-                                                              ("abcd", "abcd"),
-                                                              ("bcd", "abcd"),
-                                                              ("abdc", None)])
+        compare_for_multi_index(
+            db,
+            "s2",
+            s2,
+            "a",
+            ["abcd"],
+            [
+                ("a", "abcd"),
+                ("ab", "abcd"),
+                ("abc", "abcd"),
+                ("b", "abcd"),
+                ("abcd", "abcd"),
+                ("bcd", "abcd"),
+                ("abdc", None),
+            ],
+        )
 
     def test_more_than_one_func(self, db):
         s = """
@@ -148,10 +144,10 @@ class TestMultiIndexCreatorWithInternalImports:
         """
         compare_for_multi_index(
             db,
-            's',
+            "s",
             s,
-            'a',
-            ['abcd'],
+            "a",
+            ["abcd"],
             [
                 ("a", None),
                 ("ab", "abcd"),
@@ -159,5 +155,6 @@ class TestMultiIndexCreatorWithInternalImports:
                 ("b", None),
                 ("abcd", "abcd"),  # fix_r will trim it to 3 letters!
                 ("bcd", "abcd"),
-                ("abdc", None)
-            ])
+                ("abdc", None),
+            ],
+        )

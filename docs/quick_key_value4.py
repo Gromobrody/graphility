@@ -6,12 +6,12 @@ from codernitydb3.tree_index import TreeBasedIndex
 
 class WithXIndex(TreeBasedIndex):
     def __init__(self, *args, **kwargs):
-        kwargs['node_capacity'] = 10
-        kwargs['key_format'] = 'I'
+        kwargs["node_capacity"] = 10
+        kwargs["key_format"] = "I"
         super(WithXIndex, self).__init__(*args, **kwargs)
 
     def make_key_value(self, data):
-        t_val = data.get('x')
+        t_val = data.get("x")
         if t_val is not None:
             return t_val, None
         return None
@@ -21,9 +21,9 @@ class WithXIndex(TreeBasedIndex):
 
 
 def main():
-    db = Database('/tmp/tut4')
+    db = Database("/tmp/tut4")
     db.create()
-    x_ind = WithXIndex(db.path, 'x')
+    x_ind = WithXIndex(db.path, "x")
     db.add_index(x_ind)
 
     for x in xrange(100):
@@ -32,11 +32,11 @@ def main():
     for y in xrange(100):
         db.insert(dict(y=y))
 
-    print db.get('x', 10, with_doc=True)
+    print(db.get("x", 10, with_doc=True))
 
-    for curr in db.get_many('x', start=15, end=25, limit=-1, with_doc=True):
-        print curr
+    for curr in db.get_many("x", start=15, end=25, limit=-1, with_doc=True):
+        print(curr)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()

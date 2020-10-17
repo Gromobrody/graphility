@@ -1,28 +1,9 @@
-#!/usr/bin/env python
-# -*- coding: utf-8 -*-
-#
-# Copyright 2020 Nick M. (https://github.com/nickmasster)
-# Copyright 2011-2013 Codernity (http://codernity.com)
-#
-# Licensed under the Apache License, Version 2.0 (the "License");
-# you may not use this file except in compliance with the License.
-# You may obtain a copy of the License at
-#
-#     http://www.apache.org/licenses/LICENSE-2.0
-#
-# Unless required by applicable law or agreed to in writing, software
-# distributed under the License is distributed on an "AS IS" BASIS,
-# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-# See the License for the specific language governing permissions and
-# limitations under the License.
-
-import os
 import marshal
-
-import struct
+import os
 import shutil
+import struct
 
-from codernitydb3.storage import IU_Storage, DummyStorage
+from codernitydb3.storage import DummyStorage, IU_Storage
 
 try:
     from codernitydb3 import __version__
@@ -68,9 +49,9 @@ class Index:
 
     __version__ = __version__
 
-    STATUS_O = b'o'
-    STATUS_U = b'u'
-    STATUS_D = b'd'
+    STATUS_O = b"o"
+    STATUS_U = b"u"
+    STATUS_D = b"d"
 
     custom_header = ""  # : use it for imports required by your index
 
@@ -81,11 +62,11 @@ class Index:
         # self.storage = None
 
     def open_index(self):
-        if not os.path.isfile(os.path.join(self.db_path, self.name + '_buck')):
+        if not os.path.isfile(os.path.join(self.db_path, self.name + "_buck")):
             raise IndexException("Doesn't exists")
-        self.buckets = io.open(os.path.join(self.db_path, self.name + "_buck"),
-                               'r+b',
-                               buffering=0)
+        self.buckets = io.open(
+            os.path.join(self.db_path, self.name + "_buck"), "r+b", buffering=0
+        )
         self._fix_params()
         self._open_storage()
 
@@ -162,7 +143,7 @@ class Index:
 
     def destroy(self, *args, **kwargs):
         self._close()
-        bucket_file = os.path.join(self.db_path, self.name + '_buck')
+        bucket_file = os.path.join(self.db_path, self.name + "_buck")
         os.unlink(bucket_file)
         self._destroy_storage()
         self._find_key.clear()

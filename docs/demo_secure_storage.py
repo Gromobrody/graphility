@@ -1,13 +1,14 @@
 #!/usr/bin/env python
 
-from codernitydb3.hash_index import UniqueHashIndex
-from codernitydb3.storage import Storage
-from codernitydb3.database import Database
+import marshal
+import os
 from hashlib import sha256
 
 import salsa20
-import marshal
-import os
+
+from codernitydb3.database import Database
+from codernitydb3.hash_index import UniqueHashIndex
+from codernitydb3.storage import Storage
 
 
 class Salsa20Storage(Storage):
@@ -32,7 +33,7 @@ class Salsa20Storage(Storage):
 
 class EncUniqueHashIndex(UniqueHashIndex):
 
-    __enc_key = 'a' * 32
+    __enc_key = "a" * 32
 
     custom_header = """
 from demo_secure_storage import Salsa20Storage
@@ -55,8 +56,7 @@ from hashlib import sha256"""
 
     def _setup_storage(self):
         if not self.storage:
-            self.storage = Salsa20Storage(self.db_path, self.name,
-                                          self.enc_key)
+            self.storage = Salsa20Storage(self.db_path, self.name, self.enc_key)
 
     def _open_storage(self):
         self._setup_storage()
@@ -68,24 +68,24 @@ from hashlib import sha256"""
 
 
 def main():
-    db = Database('/tmp/demo_secure')
-    key = 'abcdefgh'
-    id_ind = EncUniqueHashIndex(db.path, 'id')
+    db = Database("/tmp/demo_secure")
+    key = "abcdefgh"
+    id_ind = EncUniqueHashIndex(db.path, "id")
     db.set_indexes([id_ind])
     db.create()
     db.id_ind.enc_key = key
-    print db.id_ind.storage
+    print(db.id_ind.storage)
 
     for x in xrange(100):
-        db.insert(dict(x=x, data='testing'))
+        db.insert(dict(x=x, data="testing"))
 
     db.close()
-    dbr = Database('/tmp/demo_secure')
+    dbr = Database("/tmp/demo_secure")
     dbr.open()
     dbr.id_ind.enc_key = key
 
-    for curr in dbr.all('id', limit=5):
-        print curr
+    for curr in dbr.all("id", limit=5):
+        print(curr)
 
 
 if __name__ == "__main__":

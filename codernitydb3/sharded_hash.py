@@ -1,27 +1,9 @@
-#!/usr/bin/env python
-# -*- coding: utf-8 -*-
-#
-# Copyright 2020 Nick M. (https://github.com/nickmasster)
-# Copyright 2011-2013 Codernity (http://codernity.com)
-#
-# Licensed under the Apache License, Version 2.0 (the "License");
-# you may not use this file except in compliance with the License.
-# You may obtain a copy of the License at
-#
-#     http://www.apache.org/licenses/LICENSE-2.0
-#
-# Unless required by applicable law or agreed to in writing, software
-# distributed under the License is distributed on an "AS IS" BASIS,
-# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-# See the License for the specific language governing permissions and
-# limitations under the License.
-
 import uuid
 from random import getrandbits
 
-from codernitydb3.hash_index import UniqueHashIndex, HashIndex
-from codernitydb3.sharded_index import ShardedIndex
+from codernitydb3.hash_index import HashIndex, UniqueHashIndex
 from codernitydb3.index import IndexPreconditionsException
+from codernitydb3.sharded_index import ShardedIndex
 
 
 class IU_ShardedUniqueHashIndex(ShardedIndex):
@@ -32,11 +14,10 @@ from codernitydb3.sharded_index import ShardedIndex
 """
 
     def __init__(self, db_path, name, *args, **kwargs):
-        if kwargs.get('sh_nums', 0) > 255:
+        if kwargs.get("sh_nums", 0) > 255:
             raise IndexPreconditionsException("Too many shards")
-        kwargs['ind_class'] = UniqueHashIndex
-        super(IU_ShardedUniqueHashIndex,
-              self).__init__(db_path, name, *args, **kwargs)
+        kwargs["ind_class"] = UniqueHashIndex
+        super(IU_ShardedUniqueHashIndex, self).__init__(db_path, name, *args, **kwargs)
         self.patchers.append(self.wrap_insert_id_index)
 
     @staticmethod
@@ -53,9 +34,10 @@ from codernitydb3.sharded_index import ShardedIndex
             return _id
 
         if not clean:
-            if hasattr(db_obj, '_insert_id_index_orig'):
+            if hasattr(db_obj, "_insert_id_index_orig"):
                 raise IndexPreconditionsException(
-                    "Already patched, something went wrong")
+                    "Already patched, something went wrong"
+                )
             setattr(db_obj, "_insert_id_index_orig", db_obj._insert_id_index)
             setattr(db_obj, "_insert_id_index", _insert_id_index)
         else:
@@ -68,8 +50,8 @@ from codernitydb3.sharded_index import ShardedIndex
         if trg >= self.sh_nums:
             trg = 0
         self.last_used = trg
-        h = '%02x%30s' % (trg, h[2:])
-        return h.encode('utf8')
+        h = "%02x%30s" % (trg, h[2:])
+        return h.encode("utf8")
 
     def delete(self, key, *args, **kwargs):
         trg_shard = self.make_key(key[:2])
@@ -84,7 +66,8 @@ from codernitydb3.sharded_index import ShardedIndex
 
     def insert(self, key, *args, **kwargs):
         trg_shard = self.make_key(
-            key[:2])  # in most cases it's in create_key BUT not always
+            key[:2]
+        )  # in most cases it's in create_key BUT not always
         self.last_used = int(key[:2], 16)
         op = self.shards_r[trg_shard]
         return op.insert(key, *args, **kwargs)
@@ -99,7 +82,7 @@ from codernitydb3.sharded_index import ShardedIndex
 class ShardedUniqueHashIndex(IU_ShardedUniqueHashIndex):
 
     # allow unique hash to be used directly
-    custom_header = 'from codernitydb3.sharded_hash import IU_ShardedUniqueHashIndex'
+    custom_header = "from codernitydb3.sharded_hash import IU_ShardedUniqueHashIndex"
 
     pass
 
@@ -109,9 +92,8 @@ class IU_ShardedHashIndex(ShardedIndex):
     custom_header = """from codernitydb3.sharded_index import ShardedIndex"""
 
     def __init__(self, db_path, name, *args, **kwargs):
-        kwargs['ind_class'] = HashIndex
-        super(IU_ShardedHashIndex, self).__init__(db_path, name, *args,
-                                                  **kwargs)
+        kwargs["ind_class"] = HashIndex
+        super(IU_ShardedHashIndex, self).__init__(db_path, name, *args, **kwargs)
 
     def calculate_shard(self, key):
         """

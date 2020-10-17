@@ -1,8 +1,0 @@
-coverage
-pytest
-pytest-cov
-pytest-xdist
-pylint
-rope
-yapf
-tox

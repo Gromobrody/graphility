@@ -1,0 +1,53 @@
+[tool.poetry]
+name = "codernitydb3"
+version = "0.7.0"
+description = "Pure-python NoSQL database"
+authors = [
+    "Codernity",
+    "Nick M.",
+    "Dominik Kozaczko <dominik@kozaczko.info>",
+    ]
+license = "Apache-2.0"
+readme = "README.rst"
+homepage = "http://labs.codernity.com/codernitydb/"
+repository = "https://github.com/Gromobrody/codernitydb3"
+documentation = "http://labs.codernity.com/codernitydb/"
+keywords = ["database", "nosql"]
+classifiers = [
+        "Development Status :: 4 - Beta",
+        "Intended Audience :: Developers",
+        "License :: OSI Approved :: Apache Software License",
+        "Operating System :: OS Independent",
+        "Topic :: Database",
+        "Topic :: Database :: Database Engines/Servers",
+        "Topic :: Internet",
+        "Topic :: Software Development",
+]
+
+[tool.poetry.dependencies]
+python = "^3.8"
+
+[tool.poetry.dev-dependencies]
+black = "^20.8b1"
+flake8 = "^3.8.4"
+pre-commit = "^2.7.1"
+pytest = "^6.1.1"
+coverage = "^5.3"
+pytest-cov = "^2.10.1"
+tox = "^3.20.1"
+rope = "^0.18.0"
+pytest-xdist = "^2.1.0"
+isort = "^5.6.4"
+
+[tool.isort]
+profile = "black"
+
+[tool.pytest.ini_options]
+minversion = "6.0"
+addopts = "-n4 -l"
+norecursedirs = "*"
+
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
