@@ -1,5 +1,4 @@
 import inspect
-import json
 import os
 import pickle
 import struct
@@ -99,7 +98,6 @@ class DebugTreeBasedIndex(TreeBasedIndex):
 
 
 def database_step_by_step(db_obj, path=None):
-
     if not path:
         # ugly for multiplatform support....
         p = db_obj.path

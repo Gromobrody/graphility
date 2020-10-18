@@ -7,7 +7,6 @@ from graphility.sharded_index import ShardedIndex
 
 
 class IU_ShardedUniqueHashIndex(ShardedIndex):
-
     custom_header = """import uuid
 from random import getrandbits
 from graphility.sharded_index import ShardedIndex
@@ -80,7 +79,6 @@ from graphility.sharded_index import ShardedIndex
 
 
 class ShardedUniqueHashIndex(IU_ShardedUniqueHashIndex):
-
     # allow unique hash to be used directly
     custom_header = "from graphility.sharded_hash import IU_ShardedUniqueHashIndex"
 
@@ -88,7 +86,6 @@ class ShardedUniqueHashIndex(IU_ShardedUniqueHashIndex):
 
 
 class IU_ShardedHashIndex(ShardedIndex):
-
     custom_header = """from graphility.sharded_index import ShardedIndex"""
 
     def __init__(self, db_path, name, *args, **kwargs):

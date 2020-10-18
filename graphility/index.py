@@ -1,11 +1,8 @@
 import io
 import os
 import pickle
-import shutil
-import struct
 
 from graphility import __version__
-from graphility.storage import DummyStorage, IU_Storage
 
 
 class IndexException(Exception):
@@ -53,7 +50,6 @@ class Index:
         self.name = name
         self._start_ind = 500
         self.db_path = db_path
-        # self.storage = None
 
     def open_index(self):
         if not os.path.isfile(os.path.join(self.db_path, self.name + "_buck")):

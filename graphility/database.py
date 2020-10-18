@@ -6,12 +6,7 @@ from inspect import getfullargspec, getsource
 from random import randrange
 
 from graphility.env import cdb_environment
-from graphility.hash_index import (
-    HashIndex,
-    IU_HashIndex,
-    IU_UniqueHashIndex,
-    UniqueHashIndex,
-)
+from graphility.hash_index import UniqueHashIndex
 from graphility.index import (
     DocIdNotFound,
     ElemNotFound,
@@ -24,7 +19,6 @@ from graphility.index import (
 )
 from graphility.indexcreator import Parser
 from graphility.misc import NONE, random_hex_4
-from graphility.storage import IU_Storage, Storage
 
 
 def header_for_indexes(

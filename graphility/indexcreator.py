@@ -1,3 +1,4 @@
+# FIXME: This module needs to be reworked.
 import re
 import token
 import tokenize
@@ -11,8 +12,8 @@ class IndexCreatorException(Exception):
 
     def __str__(self):
         if self.line:
-            return repr(self.ex + "(in line: %d)" % self.line)
-        return repr(self.ex)
+            return f"{self.ex} (in line: {self.line})"
+        return str(self.ex)
 
 
 class IndexCreatorFunctionException(IndexCreatorException):
@@ -29,7 +30,7 @@ class Parser(object):
 
     def parse(self, data, name=None):
         if not name:
-            self.name = "_" + uuid.uuid4().hex
+            self.name = f"_{uuid.uuid4().hex}"
         else:
             self.name = name
 
@@ -195,12 +196,10 @@ class Parser(object):
         }
 
         def is_num(s):
-            m = re.search(r"[^0-9*()+\-\s/]+", s)
-            return not m
+            return not re.search(r"[^0-9*()+\-\s/]+", s)
 
         def is_string(s):
-            m = re.search(r"\s*(?P<a>[\'\"]+).*?(?P=a)\s*", s)
-            return m
+            return bool(re.search(r"\s*(?P<a>[\'\"]+).*?(?P=a)\s*", s))
 
         data = re.split(r"make_key_value\:", data)
 
@@ -266,7 +265,6 @@ class Parser(object):
                             s = "'" + s.strip() + "'"
                         self.predata[0][i] += s
                         break
-
         for n, i in enumerate(self.predata):
             for k in i:
                 k = k.strip()
@@ -274,7 +272,6 @@ class Parser(object):
                     self.data[ind].append(k)
                     self.check_enclosures(k, n)
             ind += 1
-
         return self.parse_ex()
 
     def readline(self, stage):
@@ -313,13 +310,12 @@ class Parser(object):
         self.last_line = [-1, -1, -1]
         self.props_set = []
         self.custom_header = set()
-
         self.tokens = []
         self.tokens_head = [
-            "# %s\n" % self.name,
-            "class %s(" % self.name,
+            f"# {self.name}\n",
+            f"class {self.name}(",
             "):\n",
-            "    def __init__(self, *args, **kwargs):        ",
+            "    def __init__(self, *args, **kwargs):",
         ]
 
         for i in range(3):
@@ -354,8 +350,10 @@ class Parser(object):
 
         self.cur_brackets = 0
         self.tokens += [
-            "\n        super(%s, self).__init__(*args, **kwargs)\n    def make_key_value(self, data):        "
-            % self.name
+            (
+                f"\n        super({self.name}, self).__init__(*args, **kwargs)"
+                f"\n    def make_key_value(self, data):        "
+            )
         ]
 
         for i in self.pre_tokens[1]:
@@ -395,8 +393,7 @@ class Parser(object):
             for i in self.props_set:
                 if i not in self.allowed_props[self.index_type]:
                     raise IndexCreatorValueException(
-                        "Properity %s is not allowed for index type: %s"
-                        % (i, self.index_type)
+                        f"Property {i} is not allowed for index type: {self.index_type}"
                     )
 
         # print "".join(self.tokens_head)
@@ -421,14 +418,14 @@ class Parser(object):
             elif i in ends:
                 if len(encs) < 1 or contr[encs[-1]] != i:
                     raise IndexCreatorValueException(
-                        "Missing opening enclosure for '%s'" % i,
+                        f"Missing opening enclosure for '{i}'",
                         self.cnt_line_nr(d, st),
                     )
                 del encs[-1]
 
         if len(encs) > 0:
             raise IndexCreatorValueException(
-                "Missing closing enclosure for '%s'" % encs[0], self.cnt_line_nr(d, st)
+                f"Missing closing enclosure for '{encs[0]}'", self.cnt_line_nr(d, st)
             )
 
     def check_adjacents(self, d, st):
@@ -448,14 +445,14 @@ class Parser(object):
 
             if prev not in self.allowed_adjacent[cur]:
                 raise IndexCreatorValueException(
-                    "Wrong left value of the %s" % cur, self.cnt_line_nr(line, st)
+                    f"Wrong left value of the {cur}", self.cnt_line_nr(line, st)
                 )
 
             # there is an assumption that whole data always ends with 0 marker, the idea prolly needs a rewritting to allow more whitespaces
             # between tokens, so it will be handled anyway
             elif nex not in self.allowed_adjacent[cur][prev]:
                 raise IndexCreatorValueException(
-                    "Wrong right value of the %s" % cur, self.cnt_line_nr(line, st)
+                    f"Wrong right value of the {cur}", self.cnt_line_nr(line, st)
                 )
 
         for n, (t, i, _, _, line) in enumerate(d):
@@ -632,7 +629,7 @@ class Parser(object):
         if d[0][0] == token.NAME or d[0][0] == token.STRING:
             if d[0][1] in self.props_set:
                 raise IndexCreatorValueException(
-                    "Properity %s is set more than once" % d[0][1],
+                    f"Property {d[0][1]} is set more than once",
                     self.cnt_line_nr(d[0][4], 0),
                 )
             self.props_set += [d[0][1]]
@@ -672,7 +669,7 @@ class Parser(object):
                     self.index_name = tk
                 return
             else:
-                self.tokens += ['\n        kwargs["' + d[0][1] + '"]']
+                self.tokens += [f'\n        kwargs["{d[0][1]}"]']
         else:
             raise IndexCreatorValueException(
                 "Can't handle properity assingment ", self.cnt_line_nr(d[0][4], 0)

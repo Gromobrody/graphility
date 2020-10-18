@@ -1,8 +1,5 @@
 from graphility.index import Index
 
-# from graphility.env import cdb_environment
-# import warnings
-
 
 class ShardedIndex(Index):
     def __init__(self, db_path, name, *args, **kwargs):
@@ -26,8 +23,6 @@ class ShardedIndex(Index):
         except KeyError:
             raise Exception("ind_class must be given")
         else:
-            # if not isinstance(ind_class, basestring):
-            #     ind_class = ind_class.__name__
             self.ind_class = ind_class
         if "use_make_keys" in kwargs:
             self.use_make_keys = kwargs.pop("use_make_keys")

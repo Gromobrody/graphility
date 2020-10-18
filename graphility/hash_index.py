@@ -4,7 +4,6 @@ import pickle
 import shutil
 import struct
 
-from graphility import __version__
 from graphility.env import cdb_environment
 from graphility.index import (
     DocIdNotFound,
@@ -132,12 +131,6 @@ class IU_HashIndex(Index):
             self.storage = s(self.db_path, self.name)
         self.storage.create()
 
-    # def close_index(self):
-    #     self.buckets.flush()
-    #     self.buckets.close()
-    #     self.storage.close()
-    #    @lfu_cache(100)
-
     def _find_key(self, key):
         """
         Find the key position
@@ -241,8 +234,6 @@ class IU_HashIndex(Index):
                     location = _next  # go to next record
         return location, doc_id, l_key, start, size, status, _next
 
-    #    @lfu_cache(100)
-
     def _locate_doc_id(self, doc_id, key, start):
         """
         Locate position of the doc_id, it will iterate using `next` field in record
@@ -261,7 +252,7 @@ class IU_HashIndex(Index):
                     data
                 )
             except:
-                raise DocIdNotFound("Doc_id '%s' for '%s' not found" % (doc_id, key))
+                raise DocIdNotFound(f"Doc_id '{doc_id}' for key '{key}' not found")
             if l_doc_id == doc_id and l_key == key:  # added for consistency
                 break
             else:
@@ -274,7 +265,7 @@ class IU_HashIndex(Index):
                     location = _next  # go to next record
         return location, doc_id, l_key, start, size, status, _next
 
-    def _find_place(self, start):
+    def _find_place(self, start, key=None):
         """
         Find a place to where put the key. It will iterate using `next` field in record, until
         empty `next` found
@@ -328,7 +319,7 @@ class IU_HashIndex(Index):
         self.buckets.seek(start_position)
         curr_data = self.buckets.read(self.bucket_line_size)
 
-        # conflict occurs?
+        # does a conflict occur?
         if curr_data:
             location = self.bucket_struct.unpack(curr_data)[0]
         else:
@@ -360,7 +351,6 @@ class IU_HashIndex(Index):
                 self.buckets.write(
                     self.entry_struct.pack(doc_id, key, start, size, status, _next)
                 )
-                #                self.flush()
                 self.buckets.seek(found_at)
                 self.buckets.write(
                     self.entry_struct.pack(
@@ -375,10 +365,7 @@ class IU_HashIndex(Index):
             self.flush()
             self._locate_doc_id.delete(doc_id)
             self._find_key.delete(_key)
-            # self._find_key.delete(key)
-            # self._locate_key.delete(_key)
             return True
-            # raise NotImplementedError
         else:
             self.buckets.seek(0, 2)
             wrote_at = self.buckets.tell()
@@ -391,7 +378,6 @@ class IU_HashIndex(Index):
             self.buckets.write(
                 self.entry_struct.pack(doc_id, key, start, size, status, 0)
             )
-            #            self.flush()
             self._find_key.delete(key)
             self.buckets.seek(start_position)
             self.buckets.write(self.bucket_struct.pack(wrote_at))
@@ -480,7 +466,6 @@ class IU_HashIndex(Index):
             self.entry_struct.pack(doc_id, key, start, size, self.STATUS_D, _next)
         )
         self.flush()
-        # self._fix_link(_key, _prev, _next)
         self._find_key.delete(key)
         self._locate_doc_id.delete(doc_id)
         return True
@@ -509,7 +494,6 @@ class IU_HashIndex(Index):
 
         compact_ind.close_index()
         original_name = self.name
-        # os.unlink(os.path.join(self.db_path, self.name + "_buck"))
         self.close_index()
         shutil.move(
             os.path.join(compact_ind.db_path, compact_ind.name + "_buck"),
@@ -519,7 +503,6 @@ class IU_HashIndex(Index):
             os.path.join(compact_ind.db_path, compact_ind.name + "_stor"),
             os.path.join(self.db_path, self.name + "_stor"),
         )
-        # self.name = original_name
         self.open_index()  # reload...
         self.name = original_name
         self._save_params(dict(name=original_name))
@@ -562,9 +545,6 @@ class IU_UniqueHashIndex(IU_HashIndex):
         self.create_key = (
             random_hex_32  # : set the function to create random key when no _id given
         )
-        # self.entry_struct=struct.Struct(entry_line_format)
-
-    #    @lfu_cache(100)
 
     def _find_key(self, key):
         """
@@ -587,7 +567,7 @@ class IU_UniqueHashIndex(IU_HashIndex):
     def _find_key_many(self, *args, **kwargs):
         raise NotImplementedError()
 
-    def _find_place(self, start, key):
+    def _find_place(self, start, key=None):
         """
         Find a place to where put the key. It will iterate using `next` field in record, until
         empty `next` found
@@ -601,7 +581,7 @@ class IU_UniqueHashIndex(IU_HashIndex):
             # todo, maybe partial read there...
             l_key, rev, start, size, status, _next = self.entry_struct.unpack(data)
             if l_key == key:
-                raise IndexException("The '%s' key already exists" % key)
+                raise IndexException(f"Key '{key}' already exists")
             if not _next or status == self.STATUS_D:
                 return (
                     self.buckets.tell() - self.entry_line_size,

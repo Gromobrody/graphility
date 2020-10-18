@@ -72,8 +72,6 @@ class IU_TreeBasedIndex(Index):
         twolvl_cache = cache2lvl(150)
         self._find_key = cache(self._find_key)
         self._match_doc_id = cache(self._match_doc_id)
-        # self._read_single_leaf_record =
-        # twolvl_cache(self._read_single_leaf_record)
         self._find_key_in_leaf = twolvl_cache(self._find_key_in_leaf)
         self._read_single_node_key = twolvl_cache(self._read_single_node_key)
         self._find_first_key_occurence_in_node = twolvl_cache(
@@ -108,7 +106,7 @@ class IU_TreeBasedIndex(Index):
         self.leaf_format = (
             self.elements_counter_format
             + self.pointer_format * 2
-            + (self.single_leaf_record_format) * self.node_capacity
+            + self.single_leaf_record_format * self.node_capacity
         )
         self.leaf_heading_format = (
             self.elements_counter_format + self.pointer_format * 2
@@ -260,7 +258,7 @@ class IU_TreeBasedIndex(Index):
                     curr_status,
                 ) = self._read_single_leaf_record(curr_leaf_start, curr_key_index)
                 if key != curr_key:
-                    #                    should't happen, crashes earlier on id index
+                    # shouldn't happen, crashes earlier on id index
                     raise DocIdNotFound
                 elif doc_id == curr_doc_id and curr_status != self.STATUS_D:
                     return curr_leaf_start, nr_of_elements, curr_key_index
@@ -268,7 +266,7 @@ class IU_TreeBasedIndex(Index):
                     curr_key_index = curr_key_index + 1
             else:  # there are no more elements in current leaf, must jump to next
                 if not next_leaf:  # end of leaf linked list
-                    #                    should't happen, crashes earlier on id index
+                    # shouldn't happen, crashes earlier on id index
                     raise DocIdNotFound
                 else:
                     curr_leaf_start = next_leaf
@@ -382,7 +380,6 @@ class IU_TreeBasedIndex(Index):
         if buffer_start > candidate_start:
             move_buffer = MOVE_BUFFER_PREV
         elif buffer_end < candidate_start + self.single_node_record_size:
-            (self.pointer_size + self.key_size) - 1
             move_buffer = MOVE_BUFFER_NEXT
         else:
             move_buffer = None
@@ -735,8 +732,7 @@ class IU_TreeBasedIndex(Index):
                     buffer_start, buffer_end = self._prev_buffer(
                         buffer_start, buffer_end
                     )
-                else:  # if next chosen element is in current buffer, abort moving to other
-                    move_buffer is None
+                # if next chosen element is in current buffer, abort moving to other
                 imax = candidate_index - 1
                 (
                     candidate_start,
@@ -750,8 +746,6 @@ class IU_TreeBasedIndex(Index):
                     buffer_start, buffer_end = self._next_buffer(
                         buffer_start, buffer_end
                     )
-                else:
-                    move_buffer is None
                 imin = candidate_index + 1
                 (
                     candidate_start,
@@ -898,8 +892,7 @@ class IU_TreeBasedIndex(Index):
                     buffer_start, buffer_end = self._prev_buffer(
                         buffer_start, buffer_end
                     )
-                else:  # if next chosen element is in current buffer, abort moving to other
-                    move_buffer is None
+                # if next chosen element is in current buffer, abort moving to other
                 imax = candidate_index - 1
                 (
                     candidate_start,
@@ -914,8 +907,6 @@ class IU_TreeBasedIndex(Index):
                         buffer_start, buffer_end = self._next_buffer(
                             buffer_start, buffer_end
                         )
-                    else:
-                        move_buffer is None
                     imin = candidate_index + 1
                     (
                         candidate_start,
@@ -936,8 +927,6 @@ class IU_TreeBasedIndex(Index):
                     buffer_start, buffer_end = self._next_buffer(
                         buffer_start, buffer_end
                     )
-                else:
-                    move_buffer is None
                 imin = candidate_index + 1
                 (
                     candidate_start,
@@ -1241,7 +1230,6 @@ class IU_TreeBasedIndex(Index):
         self.buckets.write(struct.pack("<c", self.TYPE_NODE) + data_to_write)
         self.root_flag = self.TYPE_NODE
 
-        #            self._read_single_leaf_record.delete(leaf_start)
         self._find_key_in_leaf.delete(leaf_start)
         self._read_leaf_nr_of_elements.delete(leaf_start)
         self._read_leaf_nr_of_elements_and_neighbours.delete(leaf_start)
@@ -2029,7 +2017,8 @@ class IU_TreeBasedIndex(Index):
                 nodes_stack.append(curr_pointer)
                 indexes.append(curr_index)
             return nodes_stack, indexes
-        # nodes stack contains start addreses of nodes directly above leaf with key, indexes match keys adjacent nodes_stack values (as pointers)
+        # nodes stack contains start addreses of nodes directly above leaf with key,
+        # indexes match keys adjacent nodes_stack values (as pointers)
         # required when inserting new keys in upper tree levels
 
     def _find_leaf_with_last_key_occurence(self, key):
@@ -2709,7 +2698,7 @@ class IU_TreeBasedIndex(Index):
 
         compact_ind.close_index()
         original_name = self.name
-        # os.unlink(os.path.join(self.db_path, self.name + "_buck"))
+
         self.close_index()
         shutil.move(
             os.path.join(compact_ind.db_path, compact_ind.name + "_buck"),
@@ -2719,7 +2708,7 @@ class IU_TreeBasedIndex(Index):
             os.path.join(compact_ind.db_path, compact_ind.name + "_stor"),
             os.path.join(self.db_path, self.name + "_stor"),
         )
-        # self.name = original_name
+
         self.open_index()  # reload...
         self.name = original_name
         self._save_params(dict(name=original_name))
@@ -2734,7 +2723,6 @@ class IU_TreeBasedIndex(Index):
     def _clear_cache(self):
         self._find_key.clear()
         self._match_doc_id.clear()
-        #        self._read_single_leaf_record.clear()
         self._find_key_in_leaf.clear()
         self._read_single_node_key.clear()
         self._find_first_key_occurence_in_node.clear()
@@ -2765,10 +2753,11 @@ class IU_MultiTreeBasedIndex(IU_TreeBasedIndex):
         if isinstance(key, (list, tuple)):
             key = set(key)
         elif not isinstance(key, set):
-            key = set([key])
-        ins = super(IU_MultiTreeBasedIndex, self).insert
+            key = {key}
         for curr_key in key:
-            ins(doc_id, curr_key, start, size, status)
+            super(IU_MultiTreeBasedIndex, self).insert(
+                doc_id, curr_key, start, size, status
+            )
         return True
 
     def update(self, doc_id, key, u_start, u_size, u_status=None):
@@ -2776,19 +2765,19 @@ class IU_MultiTreeBasedIndex(IU_TreeBasedIndex):
         if isinstance(key, (list, tuple)):
             key = set(key)
         elif not isinstance(key, set):
-            key = set([key])
-        upd = super(IU_MultiTreeBasedIndex, self).update
+            key = {key}
         for curr_key in key:
-            upd(doc_id, curr_key, u_start, u_size, u_status)
+            super(IU_MultiTreeBasedIndex, self).update(
+                doc_id, curr_key, u_start, u_size, u_status
+            )
 
     def delete(self, doc_id, key, start=0, size=0):
         if isinstance(key, (list, tuple)):
             key = set(key)
         elif not isinstance(key, set):
-            key = set([key])
-        delete = super(IU_MultiTreeBasedIndex, self).delete
+            key = {key}
         for curr_key in key:
-            delete(doc_id, curr_key, start, size)
+            super(IU_MultiTreeBasedIndex, self).delete(doc_id, curr_key, start, size)
 
     def get(self, key):
         return super(IU_MultiTreeBasedIndex, self).get(key)
