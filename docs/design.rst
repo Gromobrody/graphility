@@ -7,7 +7,7 @@ Design
 
 .. note::
 
-    Please remember that codernitydb3 is *not* relational Database, forcing it to work in that model will usually work, but it's not recommended. You should try to denormalize it (`Database normalization`).
+    Please remember that graphility is *not* relational Database, forcing it to work in that model will usually work, but it's not recommended. You should try to denormalize it (`Database normalization`).
 
 .. _Database normalization: http://en.wikipedia.org/wiki/Database_normalization
 
@@ -16,7 +16,7 @@ Design
 How it's build
 --------------
 
-codernitydb3 is build from 3 important parts. Please read also :ref:`database_operations_description` to understand how codernitydb3 works.
+graphility is build from 3 important parts. Please read also :ref:`database_operations_description` to understand how graphility works.
 
 
 Database
@@ -44,7 +44,7 @@ Currently there are implemented 4 different databases
 
 .. hint::
 
-    Do you know that you can use codernitydb3 as simple key-value on
+    Do you know that you can use graphility as simple key-value on
     disk storage? Just define only one index (the **id** one).
 
 
@@ -70,7 +70,7 @@ Index itself does not store any information except it's
 because all indexes different than *id* one, are bound with it by
 ``_id`` value, and you can easily get content from that *id* index by
 adding ``with_doc=True`` to your get queries (please refer to
-:py:meth:`codernitydb3.database.Database.get` for method documentation)
+:py:meth:`graphility.database.Database.get` for method documentation)
 
 Don't worry it's not hard, to write index, that's an example of hash index
 (more in :ref:`examples`)
@@ -142,9 +142,9 @@ that are serializable by marshal_ module.
 ACID
 ----
 
-codernitydb3 never overwrites existing data. The **id** index is
+graphility never overwrites existing data. The **id** index is
 **always** consistent. And other indexes can be always restored,
-refreshed (:py:meth:`codernitydb3.database.Database.reindex_index` operation) from it.
+refreshed (:py:meth:`graphility.database.Database.reindex_index` operation) from it.
 
 In given time, just one writer is allowed to write into single index
 (update / delete actions). Readers are never blocked.
@@ -163,12 +163,12 @@ To handle multiple updates to the same document we use ``_rev`` (like CouchDB_) 
 that informs us about document version. When ``rev`` is not matched
 with one from Database, write operation is refused.
 
-There is also nothing like *delayed write* in default codernitydb3
+There is also nothing like *delayed write* in default graphility
 implementation. After each write, internals and file buffers are flushed, and then the write confirmation is returned to user.
 
 
 .. warning::
-    codernitydb3 does no sync kernel buffers with disk itself. To be sure that data is written to disk please call :py:meth:`~codernitydb3.database.Database.fsync`, or use :py:meth:`codernitydb3.patch.patch_flush_fsync` to call fsync always when flush is called (after data modification).
+    graphility does no sync kernel buffers with disk itself. To be sure that data is written to disk please call :py:meth:`~graphility.database.Database.fsync`, or use :py:meth:`graphility.patch.patch_flush_fsync` to call fsync always when flush is called (after data modification).
 
 
 
@@ -186,8 +186,8 @@ writes new data into that place.
 
 Because of *never update* in **Storage**, a lot of space is wasted
 there. To optimize the disk usage run
-:py:meth:`codernitydb3.database.Database.compact()` or
-:py:meth:`codernitydb3.index.Index.compact()` method.
+:py:meth:`graphility.database.Database.compact()` or
+:py:meth:`graphility.index.Index.compact()` method.
 
 
 .. _B Plus Tree: http://en.wikipedia.org/wiki/B%2B_tree
@@ -223,7 +223,7 @@ through ``make_key_value`` method, in next stage the value is stored in
 Then the procedure is repeated for other indexes.
 
 .. note::
-   Please see :py:meth:`~codernitydb3.database.Database.insert` docs
+   Please see :py:meth:`~graphility.database.Database.insert` docs
    for details.
 
 
@@ -241,7 +241,7 @@ attribute you have to perform ``get`` + ``update`` on whole object from database
 
 
 .. note::
-   Please see :py:meth:`~codernitydb3.database.Database.update` docs for details.
+   Please see :py:meth:`~graphility.database.Database.update` docs for details.
 
 
 
@@ -256,11 +256,11 @@ general just a bit changed update one. In fact the *delete* means
 iterate further if element marked as *deleted* is found).
 
 To real delete data from database you have to first delete it, then run
-:py:meth:`codernitydb3.database.Database.compact` or :py:meth:`codernitydb3.database.Database.reindex`.
+:py:meth:`graphility.database.Database.compact` or :py:meth:`graphility.database.Database.reindex`.
 
 
 .. note::
-   Please see :py:meth:`~codernitydb3.database.Database.delete` docs for details.
+   Please see :py:meth:`~graphility.database.Database.delete` docs for details.
 
 .. note::
     Please see :ref:`database_indexes` for index documentation and description.
@@ -269,4 +269,4 @@ To real delete data from database you have to first delete it, then run
 Using that order, we can be sure that even in case of index failure,
 in any case we have fully working *id* index, and it can be used to
 rebuild other index structure
-(:py:meth:`codernitydb3.database.Database.reindex` and :py:meth:`codernitydb3.database.Database.compact`)
+(:py:meth:`graphility.database.Database.reindex` and :py:meth:`graphility.database.Database.compact`)

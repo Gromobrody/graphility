@@ -3,10 +3,10 @@ import os
 import shutil
 import struct
 
-from codernitydb3.storage import DummyStorage, IU_Storage
+from graphility.storage import DummyStorage, IU_Storage
 
 try:
-    from codernitydb3 import __version__
+    from graphility import __version__
 except ImportError:
     from __init__ import __version__
 

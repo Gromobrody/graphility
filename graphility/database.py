@@ -5,14 +5,14 @@ import warnings
 from inspect import getfullargspec, getsource
 from random import randrange
 
-from codernitydb3.env import cdb_environment
-from codernitydb3.hash_index import (
+from graphility.env import cdb_environment
+from graphility.hash_index import (
     HashIndex,
     IU_HashIndex,
     IU_UniqueHashIndex,
     UniqueHashIndex,
 )
-from codernitydb3.index import (
+from graphility.index import (
     DocIdNotFound,
     ElemNotFound,
     Index,
@@ -22,11 +22,11 @@ from codernitydb3.index import (
     ReindexException,
     TryReindexException,
 )
-from codernitydb3.indexcreator import Parser
-from codernitydb3.misc import NONE, random_hex_4
+from graphility.indexcreator import Parser
+from graphility.misc import NONE, random_hex_4
 
 # for custom indexes
-from codernitydb3.storage import IU_Storage, Storage
+from graphility.storage import IU_Storage, Storage
 
 # normal imports
 
@@ -146,7 +146,7 @@ class Database:
         Set indexes using ``indexes`` param
 
         :param indexes: indexes to set in db
-        :type indexes: iterable of :py:class:`codernitydb3.index.Index` objects.
+        :type indexes: iterable of :py:class:`graphility.index.Index` objects.
 
         """
         indexes = indexes if indexes else []
@@ -496,7 +496,7 @@ class Database:
             index_kwargs["name"] = "id"
             id_ind = UniqueHashIndex(**index_kwargs)
             self.add_index(id_ind, create=False)
-            # del codernitydb3.index
+            # del graphility.index
         for index in self.indexes:
             try:
                 index.create_index()
@@ -527,7 +527,7 @@ class Database:
             warnings.warn(
                 "Your database is using old rev mechanizm \
 for ID index. You should update that index \
-(codernitydb3.migrate.migrate)."
+(graphility.migrate.migrate)."
             )
             self.create_new_rev = random_hex_4
 
@@ -802,7 +802,7 @@ you should check index code."""
         Destroys index
 
         :param index: the index to destroy
-        :type index: :py:class:`codernitydb3.index.Index`` instance, or string
+        :type index: :py:class:`graphility.index.Index`` instance, or string
         """
         if isinstance(index, str):
             if not index in self.indexes_names:
@@ -830,7 +830,7 @@ you should check index code."""
         The deleted documents will be not more in structure.
 
         :param index: the index to destroy
-        :type index: :py:class:`codernitydb3.index.Index`` instance, or string
+        :type index: :py:class:`graphility.index.Index`` instance, or string
         """
         if isinstance(index, str):
             if not index in self.indexes_names:
@@ -868,7 +868,7 @@ you should check index code."""
         You can't reindex **id** index.
 
         :param index: the index to reindex
-        :type index: :py:class:`codernitydb3.index.Index`` instance, or string
+        :type index: :py:class:`graphility.index.Index`` instance, or string
         """
         if isinstance(index, str):
             if not index in self.indexes_names:

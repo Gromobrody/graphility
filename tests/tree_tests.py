@@ -4,10 +4,10 @@ from functools import cmp_to_key
 
 import pytest
 
-from codernitydb3.database import Database, RecordDeleted, RecordNotFound
-from codernitydb3.debug_stuff import database_step_by_step
-from codernitydb3.hash_index import UniqueHashIndex
-from codernitydb3.tree_index import TreeBasedIndex
+from graphility.database import Database, RecordDeleted, RecordNotFound
+from graphility.debug_stuff import database_step_by_step
+from graphility.hash_index import UniqueHashIndex
+from graphility.tree_index import TreeBasedIndex
 
 
 def cmp(a, b):

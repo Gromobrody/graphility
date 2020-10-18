@@ -1,20 +1,18 @@
 [tool.poetry]
-name = "codernitydb3"
-version = "0.7.0"
-description = "Pure-python NoSQL database"
+name = "graphility"
+version = "0.0.1"
+description = "Pure-python NoSQL database."
 authors = [
+    "Dominik Kozaczko <dominik@kozaczko.info>",
     "Codernity",
     "Nick M.",
-    "Dominik Kozaczko <dominik@kozaczko.info>",
     ]
 license = "Apache-2.0"
 readme = "README.rst"
-homepage = "http://labs.codernity.com/codernitydb/"
-repository = "https://github.com/Gromobrody/codernitydb3"
-documentation = "http://labs.codernity.com/codernitydb/"
+repository = "https://github.com/Gromobrody/graphility"
 keywords = ["database", "nosql"]
 classifiers = [
-        "Development Status :: 4 - Beta",
+        "Development Status :: 2 - Pre-Alpha",
         "Intended Audience :: Developers",
         "License :: OSI Approved :: Apache Software License",
         "Operating System :: OS Independent",

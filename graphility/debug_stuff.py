@@ -5,7 +5,7 @@ import pickle
 import struct
 from functools import wraps
 
-from codernitydb3.tree_index import TreeBasedIndex
+from graphility.tree_index import TreeBasedIndex
 
 
 class DebugTreeBasedIndex(TreeBasedIndex):

@@ -1,8 +1,8 @@
 import pytest
 
-from codernitydb3.database import Database
-from codernitydb3.index import IndexPreconditionsException
-from codernitydb3.sharded_hash import ShardedUniqueHashIndex
+from graphility.database import Database
+from graphility.index import IndexPreconditionsException
+from graphility.sharded_hash import ShardedUniqueHashIndex
 
 
 class ShardedUniqueHashIndex5(ShardedUniqueHashIndex):

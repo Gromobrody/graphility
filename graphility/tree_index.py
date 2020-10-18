@@ -4,22 +4,19 @@ import os
 import shutil
 import struct
 
-from codernitydb3.env import cdb_environment
-from codernitydb3.index import (
+from graphility.env import cdb_environment
+from graphility.index import (
     DocIdNotFound,
     ElemNotFound,
     Index,
     IndexException,
     TryReindexException,
 )
-from codernitydb3.rr_cache import cache1lvl, cache2lvl
-from codernitydb3.storage import IU_Storage
-
-# from ipdb import set_trace
-
+from graphility.rr_cache import cache1lvl, cache2lvl
+from graphility.storage import IU_Storage
 
 if cdb_environment.get("rlock_obj"):
-    from codernitydb3 import patch
+    from graphility import patch
 
     patch.patch_cache_rr(cdb_environment["rlock_obj"])
 
@@ -40,7 +37,7 @@ class NodeCapacityException(IndexException):
 
 class IU_TreeBasedIndex(Index):
 
-    custom_header = "from codernitydb3.tree_index import TreeBasedIndex"
+    custom_header = "from graphility.tree_index import TreeBasedIndex"
 
     TYPE_LEAF = b"l"
     TYPE_NODE = b"n"

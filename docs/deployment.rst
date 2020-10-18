@@ -1,7 +1,7 @@
 Deployment
 ==========
 
-To make use of codernitydb3 (or |CodernityDBPyClient-link|), you will need just to create global object that will be available to all your application threads etc.
+To make use of graphility (or |CodernityDBPyClient-link|), you will need just to create global object that will be available to all your application threads etc.
 
 .. seealso:
 

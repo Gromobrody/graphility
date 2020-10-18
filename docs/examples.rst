@@ -158,7 +158,7 @@ Example sharded index, it will shard records on ``key`` into 10 shards. (see :re
 
     class MySharded(ShardedHashIndex):
 
-        custom_header = """from codernitydb3.sharded_hash import ShardedHashIndex"""
+        custom_header = """from graphility.sharded_hash import ShardedHashIndex"""
 
         def __init__(self, *args, **kwargs):
             kwargs['sh_nums'] = 10

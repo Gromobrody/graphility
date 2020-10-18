@@ -1,4 +1,4 @@
-from codernitydb3.database import Database
+from graphility.database import Database
 
 from .hash_tests import HashIndexTests
 from .shard_tests import ShardTests

@@ -2,9 +2,9 @@ from functools import wraps
 from threading import RLock
 from types import FunctionType, MethodType
 
-from codernitydb3.database import Database
-from codernitydb3.database_safe_shared import th_safe_gen
-from codernitydb3.env import cdb_environment
+from graphility.database import Database
+from graphility.database_safe_shared import th_safe_gen
+from graphility.env import cdb_environment
 
 cdb_environment["mode"] = "threads"
 cdb_environment["rlock_obj"] = RLock

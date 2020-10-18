@@ -5,14 +5,14 @@ from hashlib import md5
 from py.test import raises
 from pytest import fixture
 
-from codernitydb3.database import Database, RecordNotFound
-from codernitydb3.hash_index import HashIndex, MultiHashIndex
-from codernitydb3.indexcreator import (
+from graphility.database import Database, RecordNotFound
+from graphility.hash_index import HashIndex, MultiHashIndex
+from graphility.indexcreator import (
     IndexCreatorFunctionException,
     IndexCreatorValueException,
     Parser,
 )
-from codernitydb3.tree_index import MultiTreeBasedIndex, TreeBasedIndex
+from graphility.tree_index import MultiTreeBasedIndex, TreeBasedIndex
 
 # class db_set():
 # def __init__(self,t):

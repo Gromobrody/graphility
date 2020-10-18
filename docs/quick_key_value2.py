@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
-from codernitydb3.database import Database
-from codernitydb3.hash_index import HashIndex
+from graphility.database import Database
+from graphility.hash_index import HashIndex
 
 
 class WithXIndex(HashIndex):

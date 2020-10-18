@@ -9,7 +9,7 @@ paste it to play with it
 
 .. note::
 
-   If you are windows user, you should keep separate index codes from __main__ (see https://bitbucket.org/codernity/codernitydb/issue/12/error-in-tutorial-sample) because codernitydb3 uses inspect module, which doesn't work as expected on windows.
+   If you are windows user, you should keep separate index codes from __main__ (see https://bitbucket.org/codernity/codernitydb/issue/12/error-in-tutorial-sample) because graphility uses inspect module, which doesn't work as expected on windows.
 
 
 Insert / Save / Store
@@ -26,7 +26,7 @@ Insert / Save / Store
 - Simple key-value
 
 As you can see database usage is very easy. That was the simplest
-usage of codernitydb3.
+usage of graphility.
 
 
 Get / Query
@@ -68,8 +68,8 @@ As you can see database supports duplicate keys.
 .. warning::
 
    Using Hash index, you can't rely on record order, using
-   :py:meth:`~codernitydb3.database.Database.all` or
-   :py:meth:`~codernitydb3.database.Database.get_many`.
+   :py:meth:`~graphility.database.Database.all` or
+   :py:meth:`~graphility.database.Database.get_many`.
 
 Ordered data
 ------------

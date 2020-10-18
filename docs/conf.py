@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 #
 
-# codernitydb3 documentation build configuration file, created by
+# graphility documentation build configuration file, created by
 # sphinx-quickstart on Fri Aug 24 15:06:25 2012.
 #
 # This file is execfile()d with the current directory set to its containing dir.
@@ -47,15 +47,15 @@ source_suffix = ".rst"
 master_doc = "index"
 
 # General information about the project.
-project = u"codernitydb3"
-copyright = u"2011-2013, Codernity"
+project = u"graphility"
+copyright = u"2020, Dominik Kozaczko"
 # The version info for the project you're documenting, acts as replacement for
 # |version| and |release|, also used in various other places throughout the
 # built documents.
 #
 # The short X.Y version.
 
-from codernitydb3 import __version__
+from graphility import __version__
 
 version = __version__
 # The full version, including alpha/beta/rc tags.
@@ -117,14 +117,14 @@ else:
 
 # The name for this set of Sphinx documents.  If None, it defaults to
 # "<project> v<release> documentation".
-html_title = "codernitydb3"
+html_title = "graphility"
 
 # A shorter title for the navigation bar.  Default is the same as html_title.
 # html_short_title = None
 
 # The name of an image file (relative to this directory) to place at the top
 # of the sidebar.
-# html_logo = 'codernitydb3.png'
+# html_logo = 'graphility.png'
 
 # The name of an image file (within the static path) to use as favicon of the
 # docs.  This file should be a Windows icon file (.ico) being 16x16 or 32x32
@@ -178,7 +178,7 @@ html_sidebars = {"**": ["globaltoc.html"]}
 # html_file_suffix = None
 
 # Output file base name for HTML help builder.
-htmlhelp_basename = "codernitydb3doc"
+htmlhelp_basename = "graphilitydoc"
 
 # -- Options for LaTeX output --------------------------------------------
 
@@ -196,9 +196,9 @@ latex_elements = {
 latex_documents = [
     (
         "index",
-        "codernitydb3.tex",
-        u"codernitydb3 Documentation",
-        u"Codernity",
+        "graphility.tex",
+        u"graphility Documentation",
+        u"Dominik Kozaczko",
         "manual",
     ),
 ]
@@ -228,7 +228,13 @@ latex_documents = [
 # One entry per manual page. List of tuples
 # (source start file, name, description, authors, manual section).
 man_pages = [
-    ("index", "codernitydb", u"codernitydb3 Documentation", [u"Codernity Team"], 1)
+    (
+        "index",
+        "graphility",
+        u"graphility Documentation",
+        ["Codernity Team", "Dominik Kozaczko"],
+        1,
+    )
 ]
 
 # If true, show URL addresses after external links.
@@ -242,10 +248,10 @@ man_pages = [
 texinfo_documents = [
     (
         "index",
-        "codernitydb3",
-        u"codernitydb3 Documentation",
-        u"Codernity Team",
-        "codernitydb3",
+        "graphility",
+        u"graphility Documentation",
+        u"Dominik Kozaczko",
+        "graphility",
         "One line description of project.",
         "Miscellaneous",
     ),
@@ -261,14 +267,14 @@ texinfo_documents = [
 # texinfo_show_urls = 'footnote'
 
 rst_prolog = """
-.. |codernitydb3-HTTP-link| replace:: codernitydb3-HTTP_
-.. |codernitydb3-PyClient-link| replace:: codernitydb3-PyClient_
+.. |graphility-HTTP-link| replace:: graphility-HTTP_
+.. |graphility-PyClient-link| replace:: graphility-PyClient_
 .. |cdb_repo| replace:: https://bitbucket.org/codernity/codernitydb
-.. |codernitydb3-demos| replace:: `codernitydb3 Demos`_
-.. |bitbucket_link| replace:: `codernitydb3 @ Bitbucket`_
+.. |graphility-demos| replace:: `graphility Demos`_
+.. |bitbucket_link| replace:: `graphility @ Bitbucket`_
 
-.. _codernitydb3 @ Bitbucket: http://bitbucket.org/codernity/codernitydb
-.. _codernitydb3 Demos: http://bitbucket.org/codernity/codernitydb-demos
-.. _codernitydb3-HTTP: http://labs.codernity.com/codernitydb-http
-.. _codernitydb3-PyClient: http://labs.codernity.com/codernitydb-pyclient
+.. _graphility @ Bitbucket: http://bitbucket.org/codernity/codernitydb
+.. _graphility Demos: http://bitbucket.org/codernity/codernitydb-demos
+.. _graphility-HTTP: http://labs.codernity.com/codernitydb-http
+.. _graphility-PyClient: http://labs.codernity.com/codernitydb-pyclient
 """

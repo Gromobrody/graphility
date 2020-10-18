@@ -656,15 +656,15 @@ class Parser(object):
                 if d[0][1] == "type":
                     if d[2][1] == "TreeBasedIndex":
                         self.custom_header.add(
-                            "from codernitydb3.tree_index import TreeBasedIndex\n"
+                            "from graphility.tree_index import TreeBasedIndex\n"
                         )
                     elif d[2][1] == "MultiTreeBasedIndex":
                         self.custom_header.add(
-                            "from codernitydb3.tree_index import MultiTreeBasedIndex\n"
+                            "from graphility.tree_index import MultiTreeBasedIndex\n"
                         )
                     elif d[2][1] == "MultiHashIndex":
                         self.custom_header.add(
-                            "from codernitydb3.hash_index import MultiHashIndex\n"
+                            "from graphility.hash_index import MultiHashIndex\n"
                         )
                     self.tokens_head.insert(2, tk)
                     self.index_type = tk

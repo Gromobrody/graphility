@@ -1,8 +1,8 @@
 import random
 
-from codernitydb3.database import Database
-from codernitydb3.hash_index import HashIndex
-from codernitydb3.sharded_hash import ShardedHashIndex, ShardedUniqueHashIndex
+from graphility.database import Database
+from graphility.hash_index import HashIndex
+from graphility.sharded_hash import ShardedHashIndex, ShardedUniqueHashIndex
 
 
 class CustomIdSharded(ShardedUniqueHashIndex):

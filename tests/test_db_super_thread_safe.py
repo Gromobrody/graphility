@@ -1,4 +1,4 @@
-from codernitydb3.database_super_thread_safe import SuperThreadSafeDatabase
+from graphility.database_super_thread_safe import SuperThreadSafeDatabase
 
 from .hash_tests import HashIndexTests
 from .shared import DB_Tests

@@ -6,9 +6,9 @@ from hashlib import sha256
 
 import salsa20
 
-from codernitydb3.database import Database
-from codernitydb3.hash_index import UniqueHashIndex
-from codernitydb3.storage import Storage
+from graphility.database import Database
+from graphility.hash_index import UniqueHashIndex
+from graphility.storage import Storage
 
 
 class Salsa20Storage(Storage):

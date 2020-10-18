@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
-from codernitydb3.database import Database
-from codernitydb3.tree_index import TreeBasedIndex
+from graphility.database import Database
+from graphility.tree_index import TreeBasedIndex
 
 
 class WithXIndex(TreeBasedIndex):

@@ -5,7 +5,7 @@ Database indexes
 
 .. note::
 
-    At first you should read :ref:`what's index in design section<database_design_index>`. 
+    At first you should read :ref:`what's index in design section<database_design_index>`.
 
 
 Currently there are two main Index implementations.
@@ -49,7 +49,7 @@ custom_header
     in :ref:`Examples - secure storage <secure_storage_example>`.
 
 storage_class
-    It defines what storage to use. By default all indexes will use :py:class:`codernitydb3.storage.Storage`. If your Storage needs to be initialized in custom way please look at :ref:`Examples - secure storage <secure_storage_example>`.
+    It defines what storage to use. By default all indexes will use :py:class:`graphility.storage.Storage`. If your Storage needs to be initialized in custom way please look at :ref:`Examples - secure storage <secure_storage_example>`.
 
 
 .. _internal_hash_index:
@@ -70,9 +70,9 @@ can refer also for `ISAM`_.
 
 There are two major implementations
 
-* :py:class:`~codernitydb3.hash_index.UniqueHashIndex` - should be used
+* :py:class:`~graphility.hash_index.UniqueHashIndex` - should be used
   only for **id** index
-* :py:class:`~codernitydb3.hash_index.HashIndex` - a general use Hash Index.
+* :py:class:`~graphility.hash_index.HashIndex` - a general use Hash Index.
 
 They differs in several places, for details you should read the code
 of them both.
@@ -82,7 +82,7 @@ of them both.
     :ref:`Hash Index speed tests <hash_speed>`
         For speed tests
 
-    :py:class:`codernitydb3.hash_index.HashIndex`
+    :py:class:`graphility.hash_index.HashIndex`
         For documentation
 
 .. _conflict_resolution:
@@ -98,7 +98,7 @@ duplicate keys
    For duplicate keys the same mechanism is used as for
    :ref:`conflict resolution <conflict_resolution>`. All indexes different than *id* one can
    accept more than one record with the same key
-   (:py:meth:`~codernitydb3.database.Database.get_many`).
+   (:py:meth:`~graphility.database.Database.get_many`).
 
 
 .. _birthday problem: http://en.wikipedia.org/wiki/Birthday_problem
@@ -164,7 +164,7 @@ hash_lim
 
 
 make_key_value
-    (:py:meth:`~codernitydb3.index.Index.make_key_value`)
+    (:py:meth:`~graphility.index.Index.make_key_value`)
 
     That function is called by database when inserting new or updating
     objects in database.  It **has** to return ``None`` if index is
@@ -174,11 +174,11 @@ make_key_value
 
 
 make_key
-    (:py:meth:`~codernitydb3.index.Index.make_key`)
+    (:py:meth:`~graphility.index.Index.make_key`)
 
     That function is called when query operations are performed on
     database. It should format the key correctly to match that one
-    returned by :py:meth:`codernitydb3.index.Index.make_key_value`
+    returned by :py:meth:`graphility.index.Index.make_key_value`
 
 
 entry_line_format
@@ -245,7 +245,7 @@ It will allow you to perform for example:
 
 .. note::
     Please see :ref:`examples` for more examples, and
-    :py:mod:`codernitydb3.hash_index` for full Hash Index documentation
+    :py:mod:`graphility.hash_index` for full Hash Index documentation
 
 
 .. _Python struct documentation: http://docs.python.org/library/struct.html#format-characters
@@ -274,7 +274,7 @@ inside Tree structure (on leafs/nodes).
     :ref:`Tree Index speed tests <tree_speed>`
         For speed tests
 
-    :py:class:`codernitydb3.tree_index.TreeBasedIndex`
+    :py:class:`graphility.tree_index.TreeBasedIndex`
         For documentation
 
     :ref:`multiple_keys_index`
@@ -368,10 +368,10 @@ Multikeys indexes (aka Multiindex) are indexes where you can have more than one 
 Imagine something like infix search:
 
 .. code-block:: python
-    
+
     class TreeMultiTest(MultiTreeBasedIndex):
 
-        custom_header = """from codernitydb3.tree_index import MultiTreeBasedIndex
+        custom_header = """from graphility.tree_index import MultiTreeBasedIndex
     from itertools import izip"""
 
         def __init__(self, *args, **kwargs):
@@ -393,28 +393,28 @@ Imagine something like infix search:
 
         def make_key(self, key):
             return key.rjust(16, '_').lower()
-    
+
 By using that index you will be able to perform infix search over all words in your database. Only one difference from non multi index is that ``make_key_value`` has to return iterable (the best will be set because it has unique values). Then you can easily run something like that:
-    
+
 .. code-block:: python
-    
+
     db = Database('/tmp/multi')
     db.create()
     db.add_index(TreeMultiTest(db.path, "words"))
-    
+
     db.insert(dict(w='Codernity'))
-    
+
     print db.get('words', 'dern')['w']  # "Codernity"
     print db.get('words', 'cod')['w']  # "Codernity"
-    
 
-As you can see implementing infix/suffix/prefix search mechanism in codernitydb3 is very easy.
-    
+
+As you can see implementing infix/suffix/prefix search mechanism in graphility is very easy.
+
 .. note::
     Multiindex requires more time to insert data. Get speed is exactly as fast as in non multiindex (same rules applies to both of them).
-    
+
 Obviously that's not only one use case for that indexes, it's just probably the most obvious usage example.
-    
+
 Currently both Hash and Tree indexes have multiindex implementations: ``MultiHashIndex`` and ``MultiTreeBasedIndex`` (yes they are just prefixed by word ``Multi``).
 
 
@@ -426,7 +426,7 @@ Index functions
 ---------------
 
 
-Quite important thing in codernitydb3 are index functions. You can do with them anything you want they have access to database object, so they can perform operations on multiple indexes. If you want join like operation, you should write function. Then you will be able to run that function database side when using |CodernityDBHTTP-link|. The only mandatory argument for that kind of function is ``db``, the rest are function arguments.
+Quite important thing in graphility are index functions. You can do with them anything you want they have access to database object, so they can perform operations on multiple indexes. If you want join like operation, you should write function. Then you will be able to run that function database side when using |CodernityDBHTTP-link|. The only mandatory argument for that kind of function is ``db``, the rest are function arguments.
 
 
 Writing function is easy see an example there:
@@ -461,13 +461,13 @@ As mentioned before, while you work in embedded mode it makes no big difference,
 
 .. note::
 
-    Please remember that codernitydb3 is *not* relational Database, forcing it to work in that model will usually work, but it's not recommended. You should try to denormalize it (`Database normalization`_).
+    Please remember that graphility is *not* relational Database, forcing it to work in that model will usually work, but it's not recommended. You should try to denormalize it (`Database normalization`_).
 
 .. _Database normalization: http://en.wikipedia.org/wiki/Database_normalization
 
 
 .. note::
-   Please see :ref:`examples` for more examples, and :py:mod:`codernitydb3.tree_index` for full documentation
+   Please see :ref:`examples` for more examples, and :py:mod:`graphility.tree_index` for full documentation
 
 
 .. _BPlus tree: http://en.wikipedia.org/wiki/B%2B_tree
@@ -483,38 +483,38 @@ Easier way of creating indexes
 
 You bet there is! We prepared special, simplified mode for creating indexes. That code will be translated to Python code, and then used exactly in the same way as the rest indexes (so that simple indexes are exactly the same fast as pure Python ones). They are just simple by name not by possibilities.
 
-.. note:: 
+.. note::
     Don't be surprised, if we will name it SimpleIndex in several places there.
 
-Usage of this mode is really basic, you just need to provide 2 (or optionally 3) things: 
+Usage of this mode is really basic, you just need to provide 2 (or optionally 3) things:
 
 * properties of the index like this:
-    
+
 ::
-    
+
     name = MyTestIndex
     type = HashIndex
     key_format = I
     etc. etc. ...
 
 * body for *make_key_value* containing our simplified syntax:
-   
+
 ::
- 
+
     make_key_value:
     a > 1: 1, None
     a, None
 
 * and optionally body for *make_key* (if you don't provide it, it will be generated automatically and set to return key value as it is):
-    
+
 ::
 
     make_key:
     key > 1: 1
     key
 
-Syntax of function body is really basic, every line preceded by a statement with colon at the end means that 
-if conditions before colon are met, function will return everything that follows colon. If there is no colon, 
+Syntax of function body is really basic, every line preceded by a statement with colon at the end means that
+if conditions before colon are met, function will return everything that follows colon. If there is no colon,
 value will be always returned. Of course the order of lines actually matters, so if you provide body like that:
 
 ::
@@ -526,18 +526,18 @@ The second value will be never returned (because if *a* is less then 1 it's for 
 Every name will be look for in dictionaries given to functions, so body like:
 
 ::
-    
+
     a > 1: a, None
 
 will generate python code like that:
 
 .. code-block:: python
-    
+
     if data["a"] > 1:
         return data["a"], None
 
 That's everything you need to know to work with our simplified index creator, you just need to always provide *name* and *type* in index properties
-and provide body for make_key_value, which has to return always two values (the 2nd has to be a dictionary or None). 
+and provide body for make_key_value, which has to return always two values (the 2nd has to be a dictionary or None).
 Here you have some examples and their equivalents in python. Remember that this simplified creator doesn't provide python power,
 so if you want to write more sophisticated index, you will have to learn python.
 
@@ -554,17 +554,17 @@ so if you want to write more sophisticated index, you will have to learn python.
     make_key:
     md5(key)
 
-is an equivalent to: 
+is an equivalent to:
 
 .. code-block:: python
 
     class Test( HashIndex ):
-        def __init__(self,*args,**kwargs):         
-            kwargs["key_format"] = '16s' 
+        def __init__(self,*args,**kwargs):
+            kwargs["key_format"] = '16s'
             super( Test ,self).__init__(*args,**kwargs)
-        def make_key_value(self,data):         
-            return md5 ( data["a"] ) .digest() , None 
-        def make_key(self,key): 
+        def make_key_value(self,data):
+            return md5 ( data["a"] ) .digest() , None
+        def make_key(self,key):
             return md5 ( key ) .digest()
 
 
@@ -590,7 +590,7 @@ Functions that you can use in ``make_key`` and ``make_key_value``:
     :returns: string value of ``value``
     :rtype: string
 
-.. method:: len(value) 
+.. method:: len(value)
 
     it will return length of a value
 
@@ -601,7 +601,7 @@ Functions that you can use in ``make_key`` and ``make_key_value``:
 .. method:: md5(value)
 
     it will return md5 value of a string
-    
+
     :param string value: string value to get md5 from it
     :returns: md5 sum of value
     :rtype: string
@@ -618,42 +618,42 @@ Functions that you can use in ``make_key`` and ``make_key_value``:
 
 .. method:: infix(value, min_len, max_len, fixed_len)
 
-    it will generate all possible infixes of ``value`` not shorter than ``min_len`` 
+    it will generate all possible infixes of ``value`` not shorter than ``min_len``
     and not longer than ``max_len`` while all of them will have fixed length
     defined in ``fixed_len`` (which works exactly as ``fix_r``)
-    
+
     :param string value: a string which all infixes will be generated from
     :param integer min_len: minimal length of an infix
     :param integer max_len: maximal length of an infix
     :param integer fixed_len: fixed size of all infixes
     :returns: set containing fixed size infixes
-    :rtype: set  
+    :rtype: set
 
 .. method:: prefix(value, min_len, max_len, fixed_len)
 
-    it will generate all possible prefixes of ``value`` not shorter than ``min_len`` 
+    it will generate all possible prefixes of ``value`` not shorter than ``min_len``
     and not longer than ``max_len`` while all of them will have fixed length
     defined in ``fixed_len`` (which works exactly as ``fix_r``)
-    
+
     :param string value: a string which all prefixes will be generated from
     :param integer min_len: minimal length of an prefix
     :param integer max_len: maximal length of an prefix
     :param integer fixed_len: fixed size of all prefixes
     :returns: set containing fixed size prefixes
-    :rtype: set   
+    :rtype: set
 
 .. method:: suffix(value, min_len, max_len, fixed_len)
 
-    it will generate all possible suffixes of ``value`` not shorter than ``min_len`` 
+    it will generate all possible suffixes of ``value`` not shorter than ``min_len``
     and not longer than ``max_len`` while all of them will have fixed length
     defined in ``fixed_len`` (which works exactly as ``fix_r``)
-    
+
     :param string value: a string which all suffixes will be generated from
     :param integer min_len: minimal length of an suffix
     :param integer max_len: maximal length of an suffix
     :param integer fixed_len: fixed size of all suffixes
     :returns: set containing fixed size suffixes
-    :rtype: set   
+    :rtype: set
 
 .. note::
     Obviously you can use that simple indexes in |CodernityDBHTTP-link| without any problem.
@@ -673,7 +673,7 @@ Tables, collections...?
 
    In |CodernityDBdemos| you can find minitwit example which is rewrite from Sqlite application.
 
-Sure! You can use Index mechanism do to it. As it has been mentioned before, Index mechanism in codernitydb3 is like read only Table in SQL databases (see :ref:`index design <database_design_index>`). So all you need is to define how your records will differ each other.
+Sure! You can use Index mechanism do to it. As it has been mentioned before, Index mechanism in graphility is like read only Table in SQL databases (see :ref:`index design <database_design_index>`). So all you need is to define how your records will differ each other.
 
 Let's assume that you want to users and users and some data that belongs to user. You will probably want to be able to get all users, and all things that belongs to him, right? So.
 
@@ -682,15 +682,15 @@ Let's assume that you want to users and users and some data that belongs to user
 
 
 Having that indexes in your database will allow you to query for single user and for items of that user. Isn't it simple?
-As you can see, index in codernitydb3 is not an index that you probably get used to. It's much more.
+As you can see, index in graphility is not an index that you probably get used to. It's much more.
 
-How an index code is processed by codernitydb3?
+How an index code is processed by graphility?
 -----------------------------------------------
 
-    When you provide codernitydb3 with an index, it uses `getsource <http://docs.python.org/2/library/inspect.html#inspect.getsource>`_ function from `inspect module <http://docs.python.org/2/library/inspect.html>`_ to get index code. This means, that after you call add_index function, it will look for the index class in current scope, take the whole class code as it is (including intends) and place it inside it's own code. Hence there are few cons you have to bear in mind:
+    When you provide graphility with an index, it uses `getsource <http://docs.python.org/2/library/inspect.html#inspect.getsource>`_ function from `inspect module <http://docs.python.org/2/library/inspect.html>`_ to get index code. This means, that after you call add_index function, it will look for the index class in current scope, take the whole class code as it is (including intends) and place it inside it's own code. Hence there are few cons you have to bear in mind:
 
 * You can not generate class code on the fly inside, let's say, a function, like that:
-    
+
 .. code-block:: python
 
     def create_index(self,a):
@@ -705,12 +705,12 @@ How an index code is processed by codernitydb3?
                 return key
         return MyIndex
 
-Despite of code being correct in python terms, it will produce an error in codernitydb3, since class isn't defined in proper scope. 
+Despite of code being correct in python terms, it will produce an error in graphility, since class isn't defined in proper scope.
 
     * You can not provide index class code with a variable defined outside this class:
 
 .. code-block:: python
-    
+
     a = 5
     class MyIndex(HashIndex):
         def __init__(self, *args, **kwargs):
@@ -722,7 +722,7 @@ Despite of code being correct in python terms, it will produce an error in coder
         def make_key(self,key):
                 return key
 
-Even if now class is in proper scope, the example won't work, because variable ``a`` isn't known to codernitydb3.
+Even if now class is in proper scope, the example won't work, because variable ``a`` isn't known to graphility.
 
 
 .. _sharding_in_indexes:
@@ -775,7 +775,7 @@ As you can see, sharding **does matter**. It gives you almost **25%** performanc
 
 .. note::
 
-    What's even more important in Sharding is that as you probably already know codernitydb3 index metadata stores data position and size by using ``struct`` module. By default those fields are ``I`` format (``unsigned int``). So when you need to change that format to ``Q`` without sharding, you probably can switch to sharding and still use ``I`` format. ``I`` format can accept values up to ``4294967295`` bytes so about 4GB. Having 100 shards will mean that you can index up to ``4GB * 100`` data.
+    What's even more important in Sharding is that as you probably already know graphility index metadata stores data position and size by using ``struct`` module. By default those fields are ``I`` format (``unsigned int``). So when you need to change that format to ``Q`` without sharding, you probably can switch to sharding and still use ``I`` format. ``I`` format can accept values up to ``4294967295`` bytes so about 4GB. Having 100 shards will mean that you can index up to ``4GB * 100`` data.
 
 
 .. note::

@@ -2,8 +2,8 @@ from collections import defaultdict
 from functools import wraps
 from types import MethodType
 
-from codernitydb3.database import Database, PreconditionsException, RevConflict
-from codernitydb3.env import cdb_environment
+from graphility.database import Database, PreconditionsException, RevConflict
+from graphility.env import cdb_environment
 
 
 class th_safe_gen:

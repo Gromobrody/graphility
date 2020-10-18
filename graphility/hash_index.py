@@ -4,8 +4,8 @@ import os
 import shutil
 import struct
 
-from codernitydb3.env import cdb_environment
-from codernitydb3.index import (
+from graphility.env import cdb_environment
+from graphility.index import (
     DocIdNotFound,
     ElemNotFound,
     Index,
@@ -13,17 +13,17 @@ from codernitydb3.index import (
     IndexPreconditionsException,
     TryReindexException,
 )
-from codernitydb3.misc import random_hex_32
-from codernitydb3.rr_cache import cache1lvl
-from codernitydb3.storage import DummyStorage, IU_Storage
+from graphility.misc import random_hex_32
+from graphility.rr_cache import cache1lvl
+from graphility.storage import DummyStorage, IU_Storage
 
 if cdb_environment.get("rlock_obj"):
-    from codernitydb3 import patch
+    from graphility import patch
 
     patch.patch_cache_rr(cdb_environment["rlock_obj"])
 
 try:
-    from codernitydb3 import __version__
+    from graphility import __version__
 except ImportError:
     from __init__ import __version__
 
@@ -54,8 +54,8 @@ class IU_HashIndex(Index):
         :type line_format: string (32s{key}IIcI by default) {doc_id}{hash_key}{start}{size}{status}{next}
         :param hash_lim: maximum hash functon results (remember about birthday problem) count from 0
         :type hash_lim: integer
-        :param storage_class: Storage class by default it will open standard :py:class:`codernitydb3.storage.Storage` (if string has to be accesible by globals()[storage_class])
-        :type storage_class: class name which will be instance of codernitydb3.storage.Storage instance or None
+        :param storage_class: Storage class by default it will open standard :py:class:`graphility.storage.Storage` (if string has to be accesible by globals()[storage_class])
+        :type storage_class: class name which will be instance of graphility.storage.Storage instance or None
         :param key_format: a index key format
         """
         if key_format and "{key}" in entry_line_format:

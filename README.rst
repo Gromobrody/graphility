@@ -1,36 +1,27 @@
-CodernityDB pure python, NoSQL, fast database
-=============================================
+Graphility pure python, NoSQL, fast database
+============================================
 
-CodernityDB is opensource, pure python (no 3rd party dependency), fast (really fast check Speed in documentation if you don't believe in words), multiplatform, schema-less, `NoSQL <http://en.wikipedia.org/wiki/NoSQL>`_ database. It has optional support for HTTP server version (CodernityDB-HTTP), and also Python client library (CodernityDB-PyClient) that aims to be 100% compatible with embeded version.
+Graphility is based on CodernityDB by `Codernity Labs`_
 
-.. image:: docs/CodernityDB.png
-  :align: center
+Graphility is opensource, pure python (no 3rd party dependency), fast (really fast check Speed in documentation if you don't believe in words), multiplatform, schema-less, `NoSQL <http://en.wikipedia.org/wiki/NoSQL>`_ database. It has optional support for HTTP server version (Graphility-HTTP), and also Python client library (Graphility-PyClient) that aims to be 100% compatible with embeded version.
 
-You can call it a more advanced key-value database. With multiple key-values indexes in the same engine. Also CodernityDB supports functions that are executed inside database.
+You can call it a more advanced key-value database. With multiple key-values indexes in the same engine. Also Graphility supports functions that are executed inside database.
 
-Visit `Codernity Labs`_ to see documentation (included in repo).
+Documentation in repo still refers to CodernityDB and will be updated at the end of reconstruction process.
 
-Note: *documentation might be outdated due to migration*
+Reconstruction
+--------------
 
-Migration to Python 3.x
------------------------
+As of 2020 the original CodernityDB has been neglected for quite some time and the original repo has been lost.
 
-**MIGRATION IS IN PROGRESS - SOME FEATURES MAY BE NOT PROPERLY SUPPORTED YET**
+`Nick M.`_ already started porting CodernityDB to Python 3. Go to his repo to see progress.
+I'll try to backport any changes he makes but I cant' guarantee anything.
 
-Unfortunately, when I found this database, Python 2.7 reached the end of its life and was no longer supported.
+I decided to make my own port because I want to tear it down and rebuild it piece by piece using only Python 3.8+.
+You know, to fully know the internals. I also want to add graph layer on top of it.
+Also, Apache 2.0 License requires me to change the name of the project since "CodernityDB"
+is a trademark/servicemark of Codernity_.
 
-So I decided to port CodernityDB to Python 3.x. 
-
-I didn't want to use tools allows simultaneous support for both versions, as it make no sense due to Python 2 EOL. Instead I tried to modify the code to work correctly on Python 3.
-
-Currently 98% of the test are successfully passed, but there's still a lot of work to do.
-
-Version for Python 2.x
-----------------------
-
-Original version of CodernityDB is one of projects developed and released by `Codernity Labs`_.
-
-Latest CodernityDB vesion with Python 2.x support was 0.5.0. You can find it's source code in the `official repository <https://bitbucket.org/codernity/codernitydb>`_.
 
 Key features
 ------------
@@ -38,32 +29,39 @@ Key features
 * Native python database
 * Multiple indexes
 * Fast (more than 50 000 insert operations per second see Speed in documentation for details)
-* Embeded mode (default) and Server (CodernityDB-HTTP), with client library (CodernityDB-PyClient) that aims to be 100% compatible with embeded one.
+* Embeded mode (default). REST Server and client are planned.
 * Easy way to implement custom Storage
 * Sharding support
 
 Install
 -------
 
-Because CodernityDB is pure Python you need to perform standard installation for Python applications::
+Graphility is pure Python and does not need external dependencies.
 
-   pip install codernitydb3
-
-or using easy_install::
-
-   easy_install codernitydb3
+   pip install graphility
 
 or from sources::
 
-   git clone ssh://git@github.com:nickmasster/codernitydb3.git
-   cd codernitydb3
+   git clone ssh://git@github.com:Gromobrody/graphility.git
+   cd graphility
    python setup.py install
+
+Development
+-----------
+
+Poetry_ is used as project management tool. After downloading the project, activate the virtual env and install dev dependencies::
+
+    poetry shell
+    poetry install
+
+Now you're ready to go.
+
 
 License
 -------
 
+Copyright 2020 Dominik Kozaczko (https://github.com/dekoza)
 Copyright 2020 Nick M. (https://github.com/nickmasster)
-
 Copyright 2011-2013 Codernity (http://codernity.com)
 
 Licensed under the Apache License, Version 2.0 (the "License");
@@ -79,3 +77,6 @@ See the License for the specific language governing permissions and
 limitations under the License.
 
 .. _Codernity Labs: http://labs.codernity.com/codernitydb
+.. _Nick M.: https://github.com/nickmasster
+.. _Poetry: https://python-poetry.org/docs/
+.. _Codernity: https://codernity.com/

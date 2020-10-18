@@ -1,6 +1,6 @@
-from codernitydb3.index import Index
+from graphility.index import Index
 
-# from codernitydb3.env import cdb_environment
+# from graphility.env import cdb_environment
 # import warnings
 
 

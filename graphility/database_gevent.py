@@ -1,5 +1,5 @@
-from codernitydb3.database_safe_shared import SafeDatabase
-from codernitydb3.env import cdb_environment
+from graphility.database_safe_shared import SafeDatabase
+from graphility.env import cdb_environment
 
 try:
     from gevent.lock import RLock

@@ -1,5 +1,5 @@
 """
-It's codernitydb3 environment.
+It's graphility environment.
 Handles internal informations.'
 """
 

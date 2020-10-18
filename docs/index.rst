@@ -1,13 +1,13 @@
-codernitydb3 pure python, fast, NoSQL database
+graphility pure python, fast, NoSQL database
 =============================================
 
-codernitydb3 is opensource, pure Python (no 3rd party dependency), fast (even 100 000 insert and more than 100 000 get operations per second, check :ref:`speed` if you don't believe in words), multi platform, schema-less, NoSQL_ database.
+graphility is opensource, pure Python (no 3rd party dependency), fast (even 100 000 insert and more than 100 000 get operations per second, check :ref:`speed` if you don't believe in words), multi platform, schema-less, NoSQL_ database.
 
-.. image:: codernitydb3.png
+.. image:: graphility.png
     :align: center
 
 
-You can also call it a more advanced key-value database, with multiple key-values indexes in the same engine (for sure it's not "simple key/value store"). Also codernitydb3 supports functions that are executed inside database. It has optional support for HTTP server version (|CodernityDBHTTP-link|), and also Python client library (|CodernityDBPyClient-link|) that aims to be 100% compatible with embedded version.
+You can also call it a more advanced key-value database, with multiple key-values indexes in the same engine (for sure it's not "simple key/value store"). Also graphility supports functions that are executed inside database. It has optional support for HTTP server version (|CodernityDBHTTP-link|), and also Python client library (|CodernityDBPyClient-link|) that aims to be 100% compatible with embedded version.
 
 **And it's** `Apache 2.0`_ **licensed !**
 
@@ -26,13 +26,13 @@ Key features
 Install
 ~~~~~~~
 
-Because codernitydb3 is pure Python you need to perform standard installation for Python applications::
+Because graphility is pure Python you need to perform standard installation for Python applications::
 
-   pip install codernitydb3
+   pip install graphility
 
 or using easy_install::
 
-   easy_install codernitydb3
+   easy_install graphility
 
 or from sources::
 
@@ -44,7 +44,7 @@ or from sources::
 Contribute & Bugs & Requests
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-codernitydb3 is one of projects developed and released by Codernity_, so you can contact us directly in any case via db@codernity.com.
+graphility is one of projects developed and released by Codernity_, so you can contact us directly in any case via db@codernity.com.
 
 Do you want to contribute? Great! Then just fork our repository (|cdb_repo|) on Bitbucket and do a pull request. It can't be more easy!
 
@@ -59,7 +59,7 @@ Support
 
 In case of any problems, feature request you can also contact us directly.
 
-Do you want customized version of codernitydb3 ? No problem, just contact us.
+Do you want customized version of graphility ? No problem, just contact us.
 
 
 Documentation index

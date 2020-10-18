@@ -4,8 +4,8 @@ from hashlib import md5
 
 import pytest
 
-from codernitydb3 import rr_cache
-from codernitydb3.database import (
+from graphility import rr_cache
+from graphility.database import (
     Database,
     DatabaseConflict,
     DatabaseException,
@@ -16,15 +16,15 @@ from codernitydb3.database import (
     RecordNotFound,
     RevConflict,
 )
-from codernitydb3.debug_stuff import database_step_by_step
-from codernitydb3.hash_index import HashIndex, MultiHashIndex, UniqueHashIndex
-from codernitydb3.index import (
+from graphility.debug_stuff import database_step_by_step
+from graphility.hash_index import HashIndex, MultiHashIndex, UniqueHashIndex
+from graphility.index import (
     IndexException,
     IndexNotFoundException,
     IndexPreconditionsException,
     TryReindexException,
 )
-from codernitydb3.tree_index import MultiTreeBasedIndex, TreeBasedIndex
+from graphility.tree_index import MultiTreeBasedIndex, TreeBasedIndex
 
 try:
     from collections import Counter
@@ -1072,7 +1072,7 @@ class DB_Tests:
         assert db.get("ind", "a", with_doc=True)["doc"]["name"] == "a"
 
     def test_patch_flush_fsync(self, tmpdir):
-        from codernitydb3.patch import patch_flush_fsync
+        from graphility.patch import patch_flush_fsync
 
         db = self._db(os.path.join(str(tmpdir), "db"))
         db.create()

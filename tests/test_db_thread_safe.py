@@ -5,7 +5,7 @@ from threading import Thread
 
 import pytest
 
-from codernitydb3.database_thread_safe import ThreadSafeDatabase
+from graphility.database_thread_safe import ThreadSafeDatabase
 
 from .hash_tests import HashIndexTests
 from .shared import DB_Tests, WithAIndex

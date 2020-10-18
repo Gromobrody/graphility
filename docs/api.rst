@@ -10,7 +10,7 @@ understand it. In other case you should visit:
 - :ref:`design`
 - :ref:`quick_tutorial`
 
-And you probably want to use |CodernityDBHTTP-link| instead this embedded version.
+And you probably want to use |GraphilityHTTP-link| instead this embedded version.
 
 Database
 --------
@@ -22,7 +22,7 @@ Database
 Standard
 ^^^^^^^^
 
-.. automodule:: codernitydb3.database
+.. automodule:: graphility.database
     :members:
     :undoc-members:
     :show-inheritance:
@@ -31,7 +31,7 @@ Standard
 Thread Safe Database
 ^^^^^^^^^^^^^^^^^^^^
 
-.. autoclass:: codernitydb3.database_thread_safe.ThreadSafeDatabase
+.. autoclass:: graphility.database_thread_safe.ThreadSafeDatabase
     :members:
     :undoc-members:
     :show-inheritance:
@@ -40,7 +40,7 @@ Thread Safe Database
 Super Thread Safe Database
 ^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-.. automodule:: codernitydb3.database_super_thread_safe
+.. automodule:: graphility.database_super_thread_safe
     :members:
     :undoc-members:
     :show-inheritance:
@@ -49,7 +49,7 @@ Super Thread Safe Database
 Gevent Database
 ^^^^^^^^^^^^^^^
 
-.. automodule:: codernitydb3.database_gevent
+.. automodule:: graphility.database_gevent
     :members:
     :undoc-members:
     :show-inheritance:
@@ -59,16 +59,16 @@ Indexes
 -------
 
 .. note::
-   If you're **not interested in codernitydb3 development / extending** you don't need to read this section, 
+   If you're **not interested in graphility development / extending** you don't need to read this section,
    please then refer to :ref:`database_indexes`, **otherwise** please remember that index methods are called from
    ``Database`` object.
 
-   
+
 
 General Index
 ^^^^^^^^^^^^^
 
-.. automodule:: codernitydb3.index
+.. automodule:: graphility.index
     :members:
     :undoc-members:
     :show-inheritance:
@@ -80,7 +80,7 @@ Hash Index specific
 .. note::
     Please refer to :ref:`internal_hash_index` for description
 
-.. automodule:: codernitydb3.hash_index
+.. automodule:: graphility.hash_index
     :members:
     :undoc-members:
     :show-inheritance:
@@ -92,7 +92,7 @@ B+Tree Index specific
 .. note::
     Please refer to :ref:`internal_tree_index` for description
 
-.. automodule:: codernitydb3.tree_index
+.. automodule:: graphility.tree_index
     :members:
     :undoc-members:
     :show-inheritance:
@@ -102,7 +102,7 @@ B+Tree Index specific
 Storage
 -------
 
-.. automodule:: codernitydb3.storage
+.. automodule:: graphility.storage
     :members:
     :undoc-members:
     :show-inheritance:
@@ -111,7 +111,7 @@ Storage
 Patches
 -------
 
-.. automodule:: codernitydb3.patch
+.. automodule:: graphility.patch
     :members:
     :show-inheritance:
     :undoc-members:

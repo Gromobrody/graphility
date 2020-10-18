@@ -4,16 +4,16 @@ from hashlib import md5
 
 import pytest
 
-from codernitydb3 import rr_cache
-from codernitydb3.database import (
+from graphility import rr_cache
+from graphility.database import (
     Database,
     DatabaseException,
     RecordDeleted,
     RecordNotFound,
 )
-from codernitydb3.hash_index import HashIndex, UniqueHashIndex
-from codernitydb3.index import IndexException
-from codernitydb3.misc import random_hex_32
+from graphility.hash_index import HashIndex, UniqueHashIndex
+from graphility.index import IndexException
+from graphility.misc import random_hex_32
 
 try:
     from collections import Counter

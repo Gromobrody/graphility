@@ -10,7 +10,7 @@ import struct
 from hashlib import md5
 
 # custom index code start
-from codernitydb3 import rr_cache
+from graphility import rr_cache
 
 # custom db code start
 

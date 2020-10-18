@@ -1,16 +1,16 @@
 import uuid
 from random import getrandbits
 
-from codernitydb3.hash_index import HashIndex, UniqueHashIndex
-from codernitydb3.index import IndexPreconditionsException
-from codernitydb3.sharded_index import ShardedIndex
+from graphility.hash_index import HashIndex, UniqueHashIndex
+from graphility.index import IndexPreconditionsException
+from graphility.sharded_index import ShardedIndex
 
 
 class IU_ShardedUniqueHashIndex(ShardedIndex):
 
     custom_header = """import uuid
 from random import getrandbits
-from codernitydb3.sharded_index import ShardedIndex
+from graphility.sharded_index import ShardedIndex
 """
 
     def __init__(self, db_path, name, *args, **kwargs):
@@ -82,14 +82,14 @@ from codernitydb3.sharded_index import ShardedIndex
 class ShardedUniqueHashIndex(IU_ShardedUniqueHashIndex):
 
     # allow unique hash to be used directly
-    custom_header = "from codernitydb3.sharded_hash import IU_ShardedUniqueHashIndex"
+    custom_header = "from graphility.sharded_hash import IU_ShardedUniqueHashIndex"
 
     pass
 
 
 class IU_ShardedHashIndex(ShardedIndex):
 
-    custom_header = """from codernitydb3.sharded_index import ShardedIndex"""
+    custom_header = """from graphility.sharded_index import ShardedIndex"""
 
     def __init__(self, db_path, name, *args, **kwargs):
         kwargs["ind_class"] = HashIndex
