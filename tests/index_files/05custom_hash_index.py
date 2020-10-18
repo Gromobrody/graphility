@@ -1,10 +1,9 @@
 # custom_hash_index
 # CustomHashIndex
 
-import marshal
-
 # inserted automatically
 import os
+import pickle
 import shutil
 import struct
 from hashlib import md5

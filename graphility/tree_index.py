@@ -1,6 +1,6 @@
 import io
-import marshal
 import os
+import pickle
 import shutil
 import struct
 
@@ -146,7 +146,7 @@ class IU_TreeBasedIndex(Index):
                 version=self.__version__,
                 storage_class=self.storage_class,
             )
-            f.write(marshal.dumps(props))
+            f.write(pickle.dumps(props))
         self.buckets = io.open(
             os.path.join(self.db_path, self.name + "_buck"), "r+b", buffering=0
         )

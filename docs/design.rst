@@ -132,9 +132,9 @@ performed.
 
 Storage needs to save python value to the disk and return the position
 and size to allow Index to save that data. The default implementation
-uses Python marshal_ to serialize and deserialize Python objects
+uses Python pickle_ to serialize and deserialize Python objects
 passed as value into it. So you will be able to store those object
-that are serializable by marshal_ module.
+that are serializable by pickle_ module.
 
 
 
@@ -192,7 +192,7 @@ there. To optimize the disk usage run
 
 .. _B Plus Tree: http://en.wikipedia.org/wiki/B%2B_tree
 .. _Hash Table: http://en.wikipedia.org/wiki/Hash_table
-.. _marshal: http://docs.python.org/library/marshal.html
+.. _pickle: http://docs.python.org/library/pickle.html
 .. _Sparse files: http://en.wikipedia.org/wiki/Sparse_file
 
 

@@ -1,10 +1,9 @@
 # md5_index
 # Md5Index
 
-import marshal
-
 # inserted automatically
 import os
+import pickle
 import shutil
 import struct
 from hashlib import md5

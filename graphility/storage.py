@@ -1,19 +1,65 @@
 import io
-import marshal
 import os
+import pickle
 import struct
+from abc import ABCMeta, abstractmethod
 
-try:
-    from graphility import __version__
-except ImportError:
-    from __init__ import __version__
+from graphility import __version__
 
 
 class StorageException(Exception):
     pass
 
 
-class DummyStorage:
+class StorageBase(metaclass=ABCMeta):
+    @abstractmethod
+    def create(self, *args, **kwargs):
+        pass
+
+    @abstractmethod
+    def open(self, *args, **kwargs):
+        pass
+
+    @abstractmethod
+    def close(self, *args, **kwargs):
+        pass
+
+    @abstractmethod
+    def data_from(self, *args, **kwargs):
+        pass
+
+    @abstractmethod
+    def data_to(self, *args, **kwargs):
+        pass
+
+    @abstractmethod
+    def save(self, *args, **kwargs):
+        return 0, 0
+
+    @abstractmethod
+    def insert(self, *args, **kwargs):
+        return self.save(*args, **kwargs)
+
+    @abstractmethod
+    def update(self, *args, **kwargs):
+        return 0, 0
+
+    @abstractmethod
+    def get(self, *args, **kwargs):
+        return None
+
+    # def compact(self, *args, **kwargs):
+    #     pass
+    @abstractmethod
+    def fsync(self, *args, **kwargs):
+        pass
+
+    @abstractmethod
+    def flush(self, *args, **kwargs):
+        pass
+
+
+class DummyStorage(StorageBase):
     """
     Storage mostly used to fake real storage
     """
@@ -55,8 +101,7 @@ class DummyStorage:
         pass
 
 
-class IU_Storage(object):
-
+class IU_Storage(StorageBase):
     __version__ = __version__
 
     def __init__(self, db_path, name="main"):
@@ -95,10 +140,10 @@ class IU_Storage(object):
         # self.fsync()
 
     def data_from(self, data):
-        return marshal.loads(data)
+        return pickle.loads(data)
 
     def data_to(self, data):
-        return marshal.dumps(data)
+        return pickle.dumps(data)
 
     def save(self, data):
         s_data = self.data_to(data)

@@ -1,5 +1,5 @@
-Graphility pure python, NoSQL, fast database
-============================================
+Graphility - a fast pure-Python NoSQL database
+==============================================
 
 Graphility is based on CodernityDB by `Codernity Labs`_
 
@@ -32,6 +32,12 @@ Key features
 * Embeded mode (default). REST Server and client are planned.
 * Easy way to implement custom Storage
 * Sharding support
+
+Planned features
+----------------
+
+* Graph db layer with pluggable language support (GQL, Gremlin, Cypher, SPARQL, etc.)
+* Async support
 
 Install
 -------

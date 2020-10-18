@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
-import marshal
 import os
+import pickle
 from hashlib import sha256
 
 import salsa20
@@ -20,12 +20,12 @@ class Salsa20Storage(Storage):
         iv = data[:8]
         sal = salsa20.Salsa20(self.enc_key, iv, 20)
         s_data = sal.decrypt(data[8:])
-        m_data = marshal.loads(s_data)
+        m_data = pickle.loads(s_data)
         return m_data
 
     def data_to(self, data):
         iv = os.urandom(8)
-        m_data = marshal.dumps(data)
+        m_data = pickle.dumps(data)
         sal = salsa20.Salsa20(self.enc_key, iv, 20)
         s_data = sal.encrypt(m_data)
         return iv + s_data

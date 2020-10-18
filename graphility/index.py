@@ -1,5 +1,5 @@
-import marshal
 import os
+import pickle
 import shutil
 import struct
 
@@ -84,17 +84,17 @@ class Index:
 
     def _fix_params(self):
         self.buckets.seek(0)
-        props = marshal.loads(self.buckets.read(self._start_ind))
+        props = pickle.loads(self.buckets.read(self._start_ind))
         for k, v in props.items():
             self.__dict__[k] = v
         self.buckets.seek(0, 2)
 
     def _save_params(self, in_params={}):
         self.buckets.seek(0)
-        props = marshal.loads(self.buckets.read(self._start_ind))
+        props = pickle.loads(self.buckets.read(self._start_ind))
         props.update(in_params)
         self.buckets.seek(0)
-        data = marshal.dumps(props)
+        data = pickle.dumps(props)
         if len(data) > self._start_ind:
             raise IndexException("To big props")
         self.buckets.write(data)

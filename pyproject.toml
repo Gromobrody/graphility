@@ -1,7 +1,7 @@
 [tool.poetry]
 name = "graphility"
-version = "0.0.1"
-description = "Pure-python NoSQL database."
+version = "0.0.2"
+description = "Fast pure-Python NoSQL database."
 authors = [
     "Dominik Kozaczko <dominik@kozaczko.info>",
     "Codernity",
@@ -37,6 +37,9 @@ rope = "^0.18.0"
 pytest-xdist = "^2.1.0"
 isort = "^5.6.4"
 mypy = "^0.790"
+gevent = "^20.9.0"
+anyio = "^2.0.2"
+ipython = "^7.18.1"
 
 [tool.isort]
 profile = "black"

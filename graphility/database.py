@@ -39,7 +39,7 @@ def header_for_indexes(
 
 # inserted automatically
 import os
-import marshal
+import pickle
 
 import struct
 import shutil
