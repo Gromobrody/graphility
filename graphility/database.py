@@ -24,11 +24,7 @@ from graphility.index import (
 )
 from graphility.indexcreator import Parser
 from graphility.misc import NONE, random_hex_4
-
-# for custom indexes
 from graphility.storage import IU_Storage, Storage
-
-# normal imports
 
 
 def header_for_indexes(

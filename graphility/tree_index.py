@@ -36,7 +36,6 @@ class NodeCapacityException(IndexException):
 
 
 class IU_TreeBasedIndex(Index):
-
     custom_header = "from graphility.tree_index import TreeBasedIndex"
 
     TYPE_LEAF = b"l"

@@ -1,18 +1,7 @@
 import functools
-from collections import defaultdict
+from collections import Counter, defaultdict
 from heapq import nsmallest
 from operator import itemgetter
-
-try:
-    from collections import Counter
-except ImportError:
-
-    class Counter(dict):
-
-        "Mapping where default values are zero"
-
-        def __missing__(self, key):
-            return 0
 
 
 def cache1lvl(maxsize=100):

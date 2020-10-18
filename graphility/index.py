@@ -1,16 +1,11 @@
+import io
 import os
 import pickle
 import shutil
 import struct
 
+from graphility import __version__
 from graphility.storage import DummyStorage, IU_Storage
-
-try:
-    from graphility import __version__
-except ImportError:
-    from __init__ import __version__
-
-import io
 
 
 class IndexException(Exception):
@@ -46,7 +41,6 @@ class IndexPreconditionsException(IndexException):
 
 
 class Index:
-
     __version__ = __version__
 
     STATUS_O = b"o"
@@ -89,7 +83,9 @@ class Index:
             self.__dict__[k] = v
         self.buckets.seek(0, 2)
 
-    def _save_params(self, in_params={}):
+    def _save_params(self, in_params=None):
+        if in_params is None:
+            in_params = {}
         self.buckets.seek(0)
         props = pickle.loads(self.buckets.read(self._start_ind))
         props.update(in_params)

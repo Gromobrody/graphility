@@ -17,12 +17,7 @@ class SuperLock(type):
         def _inner(*args, **kwargs):
             db = args[0]
             with db.super_lock:
-                #                print '=>', f.__name__, repr(args[1:])
-                res = f(*args, **kwargs)
-                #                if db.opened:
-                #                    db.flush()
-                #                print '<=', f.__name__, repr(args[1:])
-                return res
+                return f(*args, **kwargs)
 
         return _inner
 
@@ -35,7 +30,6 @@ class SuperLock(type):
                     if b_attr in ("flush", "flush_indexes"):
                         pass
                     else:
-                        # setattr(base, b_attr, SuperLock.wrapper(a))
                         new_attr[b_attr] = SuperLock.wrapper(a)
         for attr_name, attr_value in attr.items():
             if isinstance(attr_value, FunctionType) and not attr_name.startswith("_"):

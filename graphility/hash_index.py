@@ -4,6 +4,7 @@ import pickle
 import shutil
 import struct
 
+from graphility import __version__
 from graphility.env import cdb_environment
 from graphility.index import (
     DocIdNotFound,
@@ -21,11 +22,6 @@ if cdb_environment.get("rlock_obj"):
     from graphility import patch
 
     patch.patch_cache_rr(cdb_environment["rlock_obj"])
-
-try:
-    from graphility import __version__
-except ImportError:
-    from __init__ import __version__
 
 
 class IU_HashIndex(Index):
