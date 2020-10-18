@@ -60,9 +60,9 @@ Now you're ready to go.
 License
 -------
 
-Copyright 2020 Dominik Kozaczko (https://github.com/dekoza)
-Copyright 2020 Nick M. (https://github.com/nickmasster)
-Copyright 2011-2013 Codernity (http://codernity.com)
+* Copyright 2020 Dominik Kozaczko (https://github.com/dekoza)
+* Copyright 2020 Nick M. (https://github.com/nickmasster)
+* Copyright 2011-2013 Codernity (http://codernity.com)
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
