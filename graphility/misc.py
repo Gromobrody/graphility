@@ -14,5 +14,5 @@ def random_hex_32():
 
 
 def random_hex_4(*args, **kwargs):
-    s = "%04x" % randrange(256 ** 2)
+    s = "%04x" % randrange(256**2)
     return s.encode("utf8")

@@ -471,7 +471,6 @@ class IU_HashIndex(Index):
         return True
 
     def compact(self, hash_lim=None):
-
         if not hash_lim:
             hash_lim = self.hash_lim
 

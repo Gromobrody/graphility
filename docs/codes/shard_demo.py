@@ -1,12 +1,10 @@
 import random
 
 from graphility.database import Database
-from graphility.hash_index import HashIndex
 from graphility.sharded_hash import ShardedHashIndex, ShardedUniqueHashIndex
 
 
 class CustomIdSharded(ShardedUniqueHashIndex):
-
     custom_header = "from codernitydb3.sharded_hash import ShardedUniqueHashIndex"
 
     def __init__(self, *args, **kwargs):
@@ -15,7 +13,6 @@ class CustomIdSharded(ShardedUniqueHashIndex):
 
 
 class MySharded(ShardedHashIndex):
-
     custom_header = "from codernitydb3.sharded_hash import ShardedHashIndex"
 
     def __init__(self, *args, **kwargs):
@@ -40,7 +37,7 @@ db.add_index(CustomIdSharded(db.path, "id"))
 db.add_index(MySharded(db.path, "x"))
 
 # it makes non sense to use sharding with such small number of records
-for x in xrange(10 ** 4):
+for x in xrange(10**4):
     db.insert({"x": x, "y": y})
 
-print(db.get("x", random.randint(0, 10 ** 4))["_id"])
+print(db.get("x", random.randint(0, 10**4))["_id"])

@@ -4,10 +4,8 @@ from hashlib import md5
 
 import pytest
 
-from graphility import rr_cache
 from graphility.database import (
     Database,
-    DatabaseException,
     RecordDeleted,
     RecordNotFound,
 )
@@ -20,7 +18,6 @@ try:
 except ImportError:
 
     class Counter(dict):
-
         "Mapping where default values are zero"
 
         def __missing__(self, key):
@@ -88,7 +85,6 @@ class WithAIndex(HashIndex):
 
 
 class HashIndexTests:
-
     _db = Database
 
     def setup_method(self, method):
@@ -413,7 +409,6 @@ class HashIndexTests:
             db.get("md5", "pigme")
 
     def test_custom_index(self, tmpdir):
-
         db = self._db(os.path.join(str(tmpdir), "db"))
         db.set_indexes(
             [UniqueHashIndex(db.path, "id"), CustomHashIndex(db.path, "custom")]
@@ -480,7 +475,6 @@ class HashIndexTests:
         assert len(l_1) + len(l_0) == len(got)
 
     def test_custom_index_2(self, tmpdir):
-
         db = self._db(os.path.join(str(tmpdir), "db"))
         db.set_indexes([UniqueHashIndex(db.path, "id"), WithAIndex(db.path, "with_a")])
         db.create()
@@ -535,7 +529,6 @@ class HashIndexTests:
         assert db.count(db.all, "id") == inserts - will_delete
 
     def test_all_same_keys(self, tmpdir, inserts):
-
         db = self._db(os.path.join(str(tmpdir), "db"))
         db.set_indexes([UniqueHashIndex(db.path, "id"), WithAIndex(db.path, "with_a")])
 
@@ -585,7 +578,6 @@ class HashIndexTests:
             inserted[c["_id"]] = c
 
         def _check():
-
             assert self.counter["l"] == db.count(
                 db.get_many, "custom", key=0, limit=inserts
             )

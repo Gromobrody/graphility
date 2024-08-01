@@ -78,7 +78,6 @@ def check_if_keys_match(gen, list):
 
 
 class TreeIndexTests:
-
     _db = Database
 
     def random_database_usage(
@@ -1469,18 +1468,15 @@ class TreeIndexTests:
             db.insert(a)
             test = db.get("tree", a["a"])
             assert test["key"] == a["a"]
-        assert (
-            db.count(
-                db.get_many,
-                "tree",
-                limit=-1,
-                start=4,
-                end=22,
-                inclusive_start=False,
-                inclusive_end=False,
-            )
-            == len(list(filter(lambda k: k < 22 and k > 4, key_values)))
-        )
+        assert db.count(
+            db.get_many,
+            "tree",
+            limit=-1,
+            start=4,
+            end=22,
+            inclusive_start=False,
+            inclusive_end=False,
+        ) == len(list(filter(lambda k: k < 22 and k > 4, key_values)))
         db.close()
 
     def test_get_all_between_not_existing_keys(self, tmpdir):
@@ -1495,18 +1491,15 @@ class TreeIndexTests:
             db.insert(a)
             test = db.get("tree", a["a"])
             assert test["key"] == a["a"]
-        assert (
-            db.count(
-                db.get_many,
-                "tree",
-                limit=-1,
-                start=3,
-                end=19,
-                inclusive_start=False,
-                inclusive_end=False,
-            )
-            == len(list(filter(lambda k: k < 19 and k > 3, key_values)))
-        )
+        assert db.count(
+            db.get_many,
+            "tree",
+            limit=-1,
+            start=3,
+            end=19,
+            inclusive_start=False,
+            inclusive_end=False,
+        ) == len(list(filter(lambda k: k < 19 and k > 3, key_values)))
         db.close()
 
     def test_get_all_between_not_existing_keys_inclusive(self, tmpdir):

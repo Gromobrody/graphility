@@ -32,7 +32,6 @@ class Salsa20Storage(Storage):
 
 
 class EncUniqueHashIndex(UniqueHashIndex):
-
     __enc_key = "a" * 32
 
     custom_header = """

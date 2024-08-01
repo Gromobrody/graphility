@@ -4,7 +4,6 @@ from hashlib import md5
 
 import pytest
 
-from graphility import rr_cache
 from graphility.database import (
     Database,
     DatabaseConflict,
@@ -12,12 +11,11 @@ from graphility.database import (
     DatabasePathException,
     IndexConflict,
     PreconditionsException,
-    RecordDeleted,
     RecordNotFound,
     RevConflict,
 )
 from graphility.debug_stuff import database_step_by_step
-from graphility.hash_index import HashIndex, MultiHashIndex, UniqueHashIndex
+from graphility.hash_index import HashIndex, UniqueHashIndex
 from graphility.index import (
     IndexException,
     IndexNotFoundException,
@@ -31,7 +29,6 @@ try:
 except ImportError:
 
     class Counter(dict):
-
         "Mapping where default values are zero"
 
         def __missing__(self, key):
@@ -203,7 +200,6 @@ class WithRunEdit_Index(HashIndex):
 
 
 class TreeMultiTest(MultiTreeBasedIndex):
-
     custom_header = """from codernitydb3.tree_index import MultiTreeBasedIndex"""
 
     def __init__(self, *args, **kwargs):
@@ -242,7 +238,6 @@ class MajorIndexTest(TreeBasedIndex):
 
 
 class MinorIndexTest(MajorIndexTest):
-
     custom_header = "from tests.shared import MajorIndexTest"
 
     def __init__(self, *args, **kwargs):
@@ -251,7 +246,6 @@ class MinorIndexTest(MajorIndexTest):
 
 
 class DB_Tests:
-
     _db = Database
 
     def setup_method(self, method):
@@ -330,7 +324,6 @@ class DB_Tests:
         db.create()
 
     def test_real_life_example_random(self, tmpdir, operations):
-
         db = self._db(os.path.join(str(tmpdir), "db"))
         db.set_indexes(
             [
@@ -513,7 +506,6 @@ class DB_Tests:
             db.add_index(new_index)
 
     def test_add_new_index_from_string(self, tmpdir):
-
         db = self._db(os.path.join(str(tmpdir), "db"))
         db.set_indexes([UniqueHashIndex(db.path, "id")])
         db.create()

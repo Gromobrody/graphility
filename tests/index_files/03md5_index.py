@@ -2,10 +2,6 @@
 # Md5Index
 
 # inserted automatically
-import os
-import pickle
-import shutil
-import struct
 from hashlib import md5
 
 # custom db code start

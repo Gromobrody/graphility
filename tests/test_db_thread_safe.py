@@ -13,22 +13,18 @@ from .tree_tests import TreeIndexTests
 
 
 class Test_Database(DB_Tests):
-
     _db = ThreadSafeDatabase
 
 
 class Test_HashIndex(HashIndexTests):
-
     _db = ThreadSafeDatabase
 
 
 class Test_TreeIndex(TreeIndexTests):
-
     _db = ThreadSafeDatabase
 
 
 class Test_Threads:
-
     _db = ThreadSafeDatabase
 
     def test_one(self, tmpdir):

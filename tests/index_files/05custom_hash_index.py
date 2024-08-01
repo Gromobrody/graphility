@@ -2,14 +2,8 @@
 # CustomHashIndex
 
 # inserted automatically
-import os
-import pickle
-import shutil
-import struct
-from hashlib import md5
 
 # custom index code start
-from graphility import rr_cache
 
 # custom db code start
 

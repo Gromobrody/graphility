@@ -139,7 +139,7 @@ class SafeDatabase(Database):
 
     def reindex_index(self, index, *args, **kwargs):
         if isinstance(index, str):
-            if not index in self.indexes_names:
+            if index not in self.indexes_names:
                 raise PreconditionsException("No index named %s" % index)
             index = self.indexes_names[index]
         key = index.name + "reind"

@@ -475,7 +475,6 @@ class Parser(object):
             n_b_cnt = 0
             comas_cnt = 0
             for _, i, _, _, line in a:
-
                 if c_b_cnt == n_b_cnt == s_b_cnt == 0:
                     if i == ",":
                         comas_cnt += 1
@@ -621,7 +620,7 @@ class Parser(object):
                 "Can't handle properity assingment ", self.cnt_line_nr(d[0][4], 0)
             )
 
-        if not d[1][1] in self.props_assign:
+        if d[1][1] not in self.props_assign:
             raise IndexCreatorValueException(
                 "Did you forget : or =?", self.cnt_line_nr(d[0][4], 0)
             )

@@ -24,8 +24,8 @@ from graphility.misc import NONE, random_hex_4
 def header_for_indexes(
     index_name, index_class, db_custom="", ind_custom="", classes_code=""
 ):
-    s = """# %s
-# %s
+    s = f"""# {index_name}
+# {index_class}
 
 # inserted automatically
 import os
@@ -38,25 +38,19 @@ from hashlib import md5
 
 # custom db code start
 # db_custom
-%s
+{db_custom}
 
 # custom index code start
 # ind_custom
-%s
+{ind_custom}
 
 # source of classes in index.classes_code
 # classes_code
-%s
+{classes_code}
 
 # index code start
 
-""" % (
-        index_name,
-        index_class,
-        db_custom,
-        ind_custom,
-        classes_code,
-    )
+"""
     return s.encode("utf8")
 
 
@@ -124,7 +118,7 @@ class Database:
             rnd = randrange(65536)
             return b"%04x%04x" % (rev_num, rnd)
         # new rev
-        rnd = randrange(256 ** 2)
+        rnd = randrange(256**2)
         return b"0001%04x" % rnd
 
     def __not_opened(self):
@@ -403,7 +397,7 @@ class Database:
 
         :param index_name: the name of index to look for code
         """
-        if not index_name in self.indexes_names:
+        if index_name not in self.indexes_names:
             self.__not_opened()
             raise IndexNotFoundException("Index `%s` doesn't exists" % index_name)
         ind = self.indexes_names[index_name]
@@ -575,7 +569,7 @@ for ID index. You should update that index \
         self.id_ind = None
         self.indexes_names = {}
         self._read_indexes()
-        if not "id" in self.indexes_names:
+        if "id" not in self.indexes_names:
             raise PreconditionsException("There must be `id` index!")
         for index in self.indexes:
             index.open_index()
@@ -795,10 +789,10 @@ you should check index code."""
         :type index: :py:class:`graphility.index.Index`` instance, or string
         """
         if isinstance(index, str):
-            if not index in self.indexes_names:
+            if index not in self.indexes_names:
                 raise PreconditionsException("No index named %s" % index)
             index = self.indexes_names[index]
-        elif not index in self.indexes:
+        elif index not in self.indexes:
             self.__not_opened()
             raise PreconditionsException(
                 "Argument must be Index instance or valid string index format"
@@ -823,10 +817,10 @@ you should check index code."""
         :type index: :py:class:`graphility.index.Index`` instance, or string
         """
         if isinstance(index, str):
-            if not index in self.indexes_names:
+            if index not in self.indexes_names:
                 raise PreconditionsException("No index named %s" % index)
             index = self.indexes_names[index]
-        elif not index in self.indexes:
+        elif index not in self.indexes:
             self.__not_opened()
             raise PreconditionsException(
                 "Argument must be Index instance or valid string index format"
@@ -861,10 +855,10 @@ you should check index code."""
         :type index: :py:class:`graphility.index.Index`` instance, or string
         """
         if isinstance(index, str):
-            if not index in self.indexes_names:
+            if index not in self.indexes_names:
                 raise PreconditionsException("No index named %s" % index)
             index = self.indexes_names[index]
-        elif not index in self.indexes:
+        elif index not in self.indexes:
             self.__not_opened()
             raise PreconditionsException(
                 "Argument must be Index instance or valid string index format"
@@ -907,7 +901,7 @@ you should check index code."""
             self.__not_opened()
             raise PreconditionsException("Can't add record with forbidden fields")
         _rev = self.create_new_rev()
-        if not "_id" in data:
+        if "_id" not in data:
             try:
                 _id = self.id_ind.create_key()
             except:
@@ -932,7 +926,7 @@ you should check index code."""
 
         :param data: data to update
         """
-        if not "_rev" in data or not "_id" in data:
+        if "_rev" not in data or "_id" not in data:
             self.__not_opened()
             raise PreconditionsException("Can't update without _rev or _id")
         _rev = data["_rev"]
@@ -974,7 +968,6 @@ you should check index code."""
             storage = ind.storage
             data = storage.get(start, size, status)
         else:
-
             data = {}
         if with_doc and index_name != "id":
             storage = ind.storage
@@ -1000,7 +993,7 @@ you should check index code."""
         with_storage=True,
         start=None,
         end=None,
-        **kwargs
+        **kwargs,
     ):
         """
         Allows to get **multiple** data for given ``key`` for *Hash based indexes*.
@@ -1153,7 +1146,7 @@ you should check index code."""
 
         :param data: data to delete
         """
-        if not "_rev" in data or not "_id" in data:
+        if "_rev" not in data or "_id" not in data:
             raise PreconditionsException("Can't delete without _rev or _id")
         _id = data["_id"]
         _rev = data["_rev"]

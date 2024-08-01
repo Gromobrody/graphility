@@ -1,18 +1,9 @@
 import os
-import uuid
-from hashlib import md5
 
 from py.test import raises
 from pytest import fixture
 
 from graphility.database import Database, RecordNotFound
-from graphility.hash_index import HashIndex, MultiHashIndex
-from graphility.indexcreator import (
-    IndexCreatorFunctionException,
-    IndexCreatorValueException,
-    Parser,
-)
-from graphility.tree_index import MultiTreeBasedIndex, TreeBasedIndex
 
 # class db_set():
 # def __init__(self,t):

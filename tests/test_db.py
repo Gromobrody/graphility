@@ -7,20 +7,16 @@ from .tree_tests import TreeIndexTests
 
 
 class Test_Database(DB_Tests):
-
     _db = Database
 
 
 class Test_HashIndex(HashIndexTests):
-
     _db = Database
 
 
 class Test_TreeIndex(TreeIndexTests):
-
     _db = Database
 
 
 class Test_ShardIndex(ShardTests):
-
     _db = Database

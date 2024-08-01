@@ -1,18 +1,14 @@
-import os
 import uuid
 from hashlib import md5
 
 from py.test import raises
 from pytest import fixture
 
-from graphility.database import Database, RecordNotFound
-from graphility.hash_index import HashIndex, MultiHashIndex
 from graphility.indexcreator import (
     IndexCreatorFunctionException,
     IndexCreatorValueException,
     Parser,
 )
-from graphility.tree_index import MultiTreeBasedIndex, TreeBasedIndex
 
 
 @fixture
@@ -706,7 +702,6 @@ class TestIndexCreatorRightInput:
         )
 
     def test_enclosures(self, p):
-
         s = """
         name = s
         key_format =     32s
@@ -841,7 +836,6 @@ class TestIndexCreatorExceptions:
             p.parse(s7)
 
     def test_empty_function(self, p):
-
         s = """
         type = HashIndex
         name = s
@@ -1121,7 +1115,6 @@ class TestIndexCreatorExceptions:
             p.parse(s5, "TestIndex")
 
     def test_wrong_comp_operators(self, p):
-
         s3 = """
         name = s
         key_format =     32s
@@ -1310,7 +1303,6 @@ class TestIndexCreatorExceptions:
             p.parse(s3, "TestIndex")
 
     def test_name_or_type_set_twice(self, p):
-
         s = """
         name = s
         key_format =     32s

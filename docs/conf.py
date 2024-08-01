@@ -12,7 +12,6 @@
 # All configuration values have a default; values that are commented out
 # serve to show the default.
 
-import os
 import sys
 
 try:
@@ -47,8 +46,8 @@ source_suffix = ".rst"
 master_doc = "index"
 
 # General information about the project.
-project = u"graphility"
-copyright = u"2020, Dominik Kozaczko"
+project = "graphility"
+copyright = "2020, Dominik Kozaczko"
 # The version info for the project you're documenting, acts as replacement for
 # |version| and |release|, also used in various other places throughout the
 # built documents.
@@ -197,8 +196,8 @@ latex_documents = [
     (
         "index",
         "graphility.tex",
-        u"graphility Documentation",
-        u"Dominik Kozaczko",
+        "graphility Documentation",
+        "Dominik Kozaczko",
         "manual",
     ),
 ]
@@ -231,7 +230,7 @@ man_pages = [
     (
         "index",
         "graphility",
-        u"graphility Documentation",
+        "graphility Documentation",
         ["Codernity Team", "Dominik Kozaczko"],
         1,
     )
@@ -249,8 +248,8 @@ texinfo_documents = [
     (
         "index",
         "graphility",
-        u"graphility Documentation",
-        u"Dominik Kozaczko",
+        "graphility Documentation",
+        "Dominik Kozaczko",
         "graphility",
         "One line description of project.",
         "Miscellaneous",

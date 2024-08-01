@@ -38,6 +38,7 @@ Planned features
 
 * Graph db layer with pluggable language support (GQL, Gremlin, Cypher, SPARQL, etc.)
 * Async support
+* CouchDB replication
 
 Install
 -------
