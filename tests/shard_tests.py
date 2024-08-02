@@ -6,7 +6,7 @@ from graphility.sharded_hash import ShardedUniqueHashIndex
 
 
 class ShardedUniqueHashIndex5(ShardedUniqueHashIndex):
-    custom_header = "from codernitydb3.sharded_hash import ShardedUniqueHashIndex"
+    custom_header = "from graphility.sharded_hash import ShardedUniqueHashIndex"
 
     def __init__(self, *args, **kwargs):
         kwargs["sh_nums"] = 5
@@ -14,7 +14,7 @@ class ShardedUniqueHashIndex5(ShardedUniqueHashIndex):
 
 
 class ShardedUniqueHashIndex10(ShardedUniqueHashIndex):
-    custom_header = "from codernitydb3.sharded_hash import ShardedUniqueHashIndex"
+    custom_header = "from graphility.sharded_hash import ShardedUniqueHashIndex"
 
     def __init__(self, *args, **kwargs):
         kwargs["sh_nums"] = 10
@@ -22,7 +22,7 @@ class ShardedUniqueHashIndex10(ShardedUniqueHashIndex):
 
 
 class ShardedUniqueHashIndex50(ShardedUniqueHashIndex):
-    custom_header = "from codernitydb3.sharded_hash import ShardedUniqueHashIndex"
+    custom_header = "from graphility.sharded_hash import ShardedUniqueHashIndex"
 
     def __init__(self, *args, **kwargs):
         kwargs["sh_nums"] = 50

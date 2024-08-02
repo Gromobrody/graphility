@@ -200,7 +200,7 @@ class WithRunEdit_Index(HashIndex):
 
 
 class TreeMultiTest(MultiTreeBasedIndex):
-    custom_header = """from codernitydb3.tree_index import MultiTreeBasedIndex"""
+    custom_header = """from graphility.tree_index import MultiTreeBasedIndex"""
 
     def __init__(self, *args, **kwargs):
         kwargs["key_format"] = "16s"

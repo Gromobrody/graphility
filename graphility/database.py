@@ -35,6 +35,9 @@ import struct
 import shutil
 
 from hashlib import md5
+from graphility.hash_index import *
+from graphility.tree_index import *
+from graphility.sharded_index import *
 
 # custom db code start
 # db_custom

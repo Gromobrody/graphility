@@ -1,8 +1,14 @@
 def pytest_addoption(parser):
-    parser.addoption("--inserts", type="int", help="how many inserts", default=2000)
+    parser.addoption(
+        "--inserts", action="store", type=int, help="how many inserts", default=2000
+    )
 
     parser.addoption(
-        "--operations", type="int", help="how many operations", default=5000
+        "--operations",
+        action="store",
+        type=int,
+        help="how many operations",
+        default=5000,
     )
 
 

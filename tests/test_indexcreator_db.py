@@ -1,6 +1,6 @@
 import os
 
-from py.test import raises
+from pytest import raises
 from pytest import fixture
 
 from graphility.database import Database, RecordNotFound

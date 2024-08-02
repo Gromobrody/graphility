@@ -1,5 +1,5 @@
-Graphility - a fast pure-Python NoSQL database
-==============================================
+Graphility - a fast Pythonic NoSQL database
+===========================================
 
 Graphility is based on CodernityDB by `Codernity Labs`_
 
@@ -67,7 +67,7 @@ Now you're ready to go.
 License
 -------
 
-* Copyright 2020 Dominik Kozaczko (https://github.com/dekoza)
+* Copyright 2020-2024 Dominik Kozaczko (https://github.com/dekoza)
 * Copyright 2020 Nick M. (https://github.com/nickmasster)
 * Copyright 2011-2013 Codernity (http://codernity.com)
 

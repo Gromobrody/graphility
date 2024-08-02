@@ -4,7 +4,7 @@ from random import getrandbits, randrange
 
 class NONE:
     """
-    It's inteded to be None but different,
+    It's intended to be None but different,
     for internal use only!
     """
 

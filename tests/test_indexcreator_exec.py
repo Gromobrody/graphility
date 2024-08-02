@@ -1,7 +1,7 @@
 import uuid
 from hashlib import md5
 
-from py.test import raises
+from pytest import raises
 from pytest import fixture
 
 from graphility.indexcreator import (
